@@ -2,19 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileObject : MonoBehaviour
+public class Sand : TileObject
 {
-    public Vector3 m_position;
-    public TileObject nextTileObject;
-    public Animator animator;
-
-    public TileObject(Vector3 pos)
-    {
-        m_position = pos;
-    }
-
-    public TileObject(){}
-
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +16,12 @@ public class TileObject : MonoBehaviour
         
     }
 
-    public virtual bool canStep()
+    public override bool canStep()
     {
         return true;
     }
 
-    public virtual bool onStep()
+    public override bool onStep()
     {
         return true;
     }

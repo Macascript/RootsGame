@@ -27,6 +27,7 @@ public class GridManager : MonoBehaviour
     public bool showGrid = true;
     private Vector3 origin = new Vector3();
     public TileObject[,] nodes { get; set; }
+    public Player player = new Player();
 
     public Vector3 Origin
     {
@@ -36,7 +37,39 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        CalculateTiles();
+    }
+
     private void Update(){}
+
+    void CalculateTiles()
+    {
+        nodes = new TileObject[numOfColumns, numOfRows];
+        int index = 0;
+        for (int i = 0; i < numOfColumns; i++)
+        {
+            for (int j = 0; j < numOfRows; j++)
+            {
+                Vector3 cellPos = GetGridCellCenter(index);
+                TileObject node = new TileObject(cellPos);
+                nodes[i, j] = node;
+                index++;
+            }
+        }
+        //if (obstacleList != null && obstacleList.Length > 0)
+        //{
+        //    //For each obstacle found on the map, record it in our list
+        //    foreach (GameObject data in obstacleList)
+        //    {
+        //        int indexCell = GetGridIndex(data.transform.position);
+        //        int col = GetColumn(indexCell);
+        //        int row = GetRow(indexCell);
+        //        nodes[row, col].MarkAsObstacle();
+        //    }
+        //}
+    }
 
     public Vector3 GetGridCellCenter(int index)
     {
@@ -88,7 +121,7 @@ public class GridManager : MonoBehaviour
         return col;
     }
 
-    public void GetNeighbours(TileObject node, ArrayList neighbors)
+    public void GetNeighbours(TileObject node, TileObject[] neighbors)
     {
         Vector3 neighborPos = node.m_position;
         int neighborIndex = GetGridIndex(neighborPos);
@@ -189,12 +222,14 @@ public class GridManager : MonoBehaviour
         return auxNode;
     }
 
-    void AssignNeighbour(int row, int column, ArrayList neighbors)
+    void AssignNeighbour(int row, int column, TileObject[] neighbors)
     {
+        int counter = 0;
         if (row != -1 && column != -1 && row < numOfRows && column < numOfColumns)
         {
             TileObject nodeToAdd = nodes[row, column];
-            neighbors.Add(nodeToAdd);
+            neighbors[counter] = nodeToAdd;
+            counter++;
         }
     }
 

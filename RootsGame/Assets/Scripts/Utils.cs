@@ -14,3 +14,10 @@ public enum Directions
     LeftUp,
     RightUp
 }
+
+public enum WaterType
+{
+    Simple,
+    Double,
+    Max
+}
