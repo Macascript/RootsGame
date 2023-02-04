@@ -140,14 +140,13 @@ public class Player : MonoBehaviour
             }
             GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.m_position, auxObj);
             actualNode.nextTileObject = GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)];
-            ((Root)actualNode).growAnimation();
+            ((Root)actualNode).growAnimation(direction);
 
             useWaterEnergy();
             actualNode = actualNode.nextTileObject;
 
             if (!canMove()) gameOver();
         }
-        // else actualNode backwards animation
     }
 
     void gameOver()

@@ -11,7 +11,7 @@ public class Water : TileObject
         type = wType;
         Instantiate(randomSand, this.m_position, Quaternion.identity);
         GameObject waterObj = Instantiate(water, this.m_position, Quaternion.identity);
-        waterObj.transform.Rotate(new Vector3(0.0f,0.0f, Random.Range(0, 4) * 90));
+        if(type != WaterType.Max) waterObj.transform.Rotate(new Vector3(0.0f,0.0f, Random.Range(0, 4) * 90));
     }
 
     private WaterType type;
