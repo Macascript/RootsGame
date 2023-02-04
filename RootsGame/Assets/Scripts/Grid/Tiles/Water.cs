@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Water : TileObject
 {
+    [SerializeField] private Sprite drinked;
     public Water(Vector3 pos, WaterType wType, GameObject randomSand, GameObject water)
     {
         m_position = pos;
@@ -23,6 +24,7 @@ public class Water : TileObject
     public override bool onStep()
     {
         GridManager.instance.player.gainWaterEnergy(type);
+        GetComponent<SpriteRenderer>().sprite = drinked;
         return true;
     }
 }
