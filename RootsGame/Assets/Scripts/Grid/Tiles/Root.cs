@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Root : TileObject
 {
+    [SerializeField] private GameObject dust;
+    private GameObject actualDust;
+
     public Root(Vector3 pos, GameObject terminacion)
     {
         m_position = pos;
@@ -33,5 +36,15 @@ public class Root : TileObject
             animator = GetComponent<Animator>();
         animator.SetTrigger("grow");
         ((Root)nextTileObject).birthAnimation();
+    }
+
+    public void instanceDust()
+    {
+        actualDust = Instantiate(dust, transform);
+    }
+
+    public void destroyDust()
+    {
+        Destroy(actualDust);
     }
 }
