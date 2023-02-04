@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class Root : TileObject
 {
-<<<<<<< HEAD
     public Root(Vector3 pos, GameObject terminacion)
-=======
-    private Animator anim;
-    public Root(Vector3 pos)
->>>>>>> 32b1479a61e92e7b4cefd57b5ca98b0070e7dce5
     {
         m_position = pos;
         Instantiate(terminacion, this.m_position, Quaternion.identity);
