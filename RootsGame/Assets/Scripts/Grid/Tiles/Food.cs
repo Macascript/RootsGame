@@ -5,9 +5,10 @@ using UnityEngine.UIElements;
 
 public class Food : TileObject
 {
-    public Food(Vector3 pos)
+    public Food(Vector3 pos, GameObject randomSand)
     {
         m_position = pos;
+        Instantiate(randomSand, this.m_position, Quaternion.identity);
     }
 
     public override bool canStep()

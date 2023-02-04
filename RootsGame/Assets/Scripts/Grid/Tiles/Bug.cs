@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Bug : TileObject
 {
-    public Bug(Vector3 pos)
+    public Bug(Vector3 pos, GameObject randomSand)
     {
         m_position = pos;
+        Instantiate(randomSand, this.m_position, Quaternion.identity);
     }
 
     public override bool canStep()
