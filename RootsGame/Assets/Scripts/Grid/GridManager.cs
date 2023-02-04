@@ -97,13 +97,13 @@ public class GridManager : MonoBehaviour
                         node = new Rock(cellPos, sand[randomAux], rock);
                         break;
                     case 'C':
-                        node = new Water(cellPos, WaterType.Simple, sand[randomAux]);
+                        node = new Water(cellPos, WaterType.Simple, sand[randomAux], water[0]);
                         break;
                     case 'D':
-                        node = new Water(cellPos, WaterType.Double, sand[randomAux]);
+                        node = new Water(cellPos, WaterType.Double, sand[randomAux], water[1]);
                         break;
                     case 'E':
-                        node = new Water(cellPos, WaterType.Max, sand[randomAux]);
+                        node = new Water(cellPos, WaterType.Max, sand[randomAux], water[2]);
                         break;
                     case 'F':
                         node = new Bug(cellPos);

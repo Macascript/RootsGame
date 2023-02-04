@@ -6,7 +6,7 @@ public class TileObject : MonoBehaviour
 {
     public Vector3 m_position;
     public TileObject nextTileObject;
-    public Animator animator;
+    public Animator animator = null;
 
     public TileObject(Vector3 pos)
     {
