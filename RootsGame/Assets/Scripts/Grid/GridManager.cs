@@ -122,13 +122,13 @@ public class GridManager : MonoBehaviour
                         node = new Water(cellPos, WaterType.Max, sand[randomAux], water[2]);
                         break;
                     case 'F':
-                        node = new Bug(cellPos);
+                        node = new Bug(cellPos, sand[randomAux]);
                         break;
                     case 'G':
-                        node = new Food(cellPos);
+                        node = new Food(cellPos, sand[randomAux]);
                         break;
                     case 'H':
-                        node = new PowerUp(cellPos);
+                        node = new PowerUp(cellPos, sand[randomAux]);
                         break;
                     default:
                         break;

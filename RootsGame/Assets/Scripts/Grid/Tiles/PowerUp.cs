@@ -5,9 +5,10 @@ using UnityEngine.UIElements;
 
 public class PowerUp : TileObject
 {
-    public PowerUp(Vector3 pos)
+    public PowerUp(Vector3 pos, GameObject randomSand)
     {
         m_position = pos;
+        Instantiate(randomSand, this.m_position, Quaternion.identity);
     }
 
     public override bool canStep()
