@@ -11,6 +11,7 @@ public class ConsoleLogger : MonoBehaviour
     public void Log(string msg)
     {
         Debug.Log(msg);
+        if (output == null) return;
         output.text = msg+" "+logCount;
         logCount++;
     }
