@@ -17,6 +17,7 @@ public class Food : TileObject
 
     public override bool onStep()
     {
+        GridManager.instance.player.gainFoodEnergy();
         return true;
     }
 }
