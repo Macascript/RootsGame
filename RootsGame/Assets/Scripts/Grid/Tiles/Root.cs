@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class Root : TileObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public Root(Vector3 pos)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        m_position = pos;
     }
 
     public override bool canStep()

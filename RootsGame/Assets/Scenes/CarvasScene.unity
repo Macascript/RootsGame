@@ -293,10 +293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96bcb1f33af092649bd1658f20ffce5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numOfRows: 17
-  numOfColumns: 32
-  gridCellSize: 100.1
+  gridCellSize: 4096
   showGrid: 1
+  player: {fileID: 0}
 --- !u!1 &2144253586
 GameObject:
   m_ObjectHideFlags: 0

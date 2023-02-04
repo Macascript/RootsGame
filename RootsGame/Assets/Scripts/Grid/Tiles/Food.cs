@@ -1,21 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Rock : TileObject
+public class Food : TileObject
 {
-    public Rock(Vector3 pos)
+    public Food(Vector3 pos)
     {
         m_position = pos;
     }
 
     public override bool canStep()
     {
-        return false;
+        return true;
     }
 
     public override bool onStep()
     {
-        return false;
+        return true;
     }
 }

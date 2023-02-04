@@ -4,19 +4,13 @@ using UnityEngine;
 
 public class Water : TileObject
 {
+    public Water(Vector3 pos, WaterType wType)
+    {
+        m_position = pos;
+        type = wType;
+    }
+
     private WaterType type;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public override bool canStep()
     {
