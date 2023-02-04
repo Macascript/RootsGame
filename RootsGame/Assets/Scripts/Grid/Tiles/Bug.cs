@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rock : TileObject
+public class Bug : TileObject
 {
-    public Rock(Vector3 pos)
+    public Bug(Vector3 pos)
     {
         m_position = pos;
     }

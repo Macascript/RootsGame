@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+
 public class GridManager : MonoBehaviour
 {
     private static GridManager s_Instance = null;
@@ -21,13 +23,13 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public int numOfRows;
-    public int numOfColumns;
-    public float gridCellSize;
+    private int numOfRows = 0;
+    private int numOfColumns = 0;
+    private float gridCellSize = 4096;
     public bool showGrid = true;
     private Vector3 origin = new Vector3();
     public TileObject[,] nodes { get; set; }
-    public Player player = new Player();
+    public Player player { get; private set; }
 
     public Vector3 Origin
     {
@@ -39,6 +41,7 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
+        player = new Player();
         CalculateTiles();
     }
 
@@ -46,29 +49,64 @@ public class GridManager : MonoBehaviour
 
     void CalculateTiles()
     {
+        foreach (string line in System.IO.File.ReadLines("Assets/Resources/chunk.txt"))
+        {
+            numOfColumns = 0;
+            for (int j = 0; j < line.Length; j++)
+            {
+                numOfColumns++;
+            }
+            numOfRows++;
+        }
+
         nodes = new TileObject[numOfColumns, numOfRows];
         int index = 0;
-        for (int i = 0; i < numOfColumns; i++)
+        Vector3 cellPos = GetGridCellCenter(index);
+        TileObject node = new TileObject(cellPos);
+
+        int lineCounter = 0;
+        foreach (string line in System.IO.File.ReadLines("Assets/Resources/chunk.txt"))
         {
-            for (int j = 0; j < numOfRows; j++)
-            {
-                Vector3 cellPos = GetGridCellCenter(index);
-                TileObject node = new TileObject(cellPos);
-                nodes[i, j] = node;
+            Debug.Log("lineCounter - " + lineCounter);
+            for (int j = 0; j < line.Length; j++)
+            {   
+                cellPos = GetGridCellCenter(index);
+                Debug.Log("j - " + line[j]);
+
+                switch (line[j])
+                {
+                    case 'A':
+                        node = new Sand(cellPos);
+                        break;
+                    case 'B':
+                        node = new Rock(cellPos);
+                        break;
+                    case 'C':
+                        node = new Water(cellPos, WaterType.Simple);
+                        break;
+                    case 'D':
+                        node = new Water(cellPos, WaterType.Double);
+                        break;
+                    case 'E':
+                        node = new Water(cellPos, WaterType.Max);
+                        break;
+                    case 'F':
+                        node = new Bug(cellPos);
+                        break;
+                    case 'G':
+                        node = new Food(cellPos);
+                        break;
+                    case 'H':
+                        node = new PowerUp(cellPos);
+                        break;
+                    default: 
+                        break;
+                }
+                nodes[j, lineCounter] = node;
                 index++;
             }
+            lineCounter++;
         }
-        //if (obstacleList != null && obstacleList.Length > 0)
-        //{
-        //    //For each obstacle found on the map, record it in our list
-        //    foreach (GameObject data in obstacleList)
-        //    {
-        //        int indexCell = GetGridIndex(data.transform.position);
-        //        int col = GetColumn(indexCell);
-        //        int row = GetRow(indexCell);
-        //        nodes[row, col].MarkAsObstacle();
-        //    }
-        //}
     }
 
     public Vector3 GetGridCellCenter(int index)
@@ -132,17 +170,17 @@ public class GridManager : MonoBehaviour
         int leftNodeColumn = column;
         AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
         //Top
-        //leftNodeRow = row + 1;
-        //leftNodeColumn = column;
-        //AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        leftNodeRow = row + 1;
+        leftNodeColumn = column;
+        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
         //Diagonal Top Right
-        //leftNodeRow = row + 1;
-        //leftNodeColumn = column + 1;
-        //AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        leftNodeRow = row + 1;
+        leftNodeColumn = column + 1;
+        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
         //Diagonal Top Left
-        //leftNodeRow = row + 1;
-        //leftNodeColumn = column - 1;
-        //AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        leftNodeRow = row + 1;
+        leftNodeColumn = column - 1;
+        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
         //Right
         leftNodeRow = row;
         leftNodeColumn = column + 1;
@@ -237,7 +275,7 @@ public class GridManager : MonoBehaviour
     {
         if (row != -1 && column != -1 && row < numOfRows && column < numOfColumns)
         {
-            TileObject nodeToAdd = nodes[row, column];
+            neighbour = nodes[row, column];
         }
     }
 
