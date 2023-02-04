@@ -59,15 +59,11 @@ public class GridManager : MonoBehaviour
 
     void CalculateTiles()
     {
-        foreach (string line in System.IO.File.ReadLines("Assets/Resources/chunk.txt"))
-        {
-            numOfColumns = 0;
-            for (int j = 0; j < line.Length; j++)
-            {
-                numOfColumns++;
-            }
-            numOfRows++;
-        }
+        TextAsset txt = (TextAsset)Resources.Load("chunk", typeof(TextAsset));
+        List<string> lines = new List<string>(txt.text.Split('\n'));
+
+        numOfRows = lines.Count;
+        numOfColumns = lines[0].Length - 1;
 
         nodes = new TileObject[numOfColumns, numOfRows];
         int index = 0;
@@ -75,9 +71,7 @@ public class GridManager : MonoBehaviour
         TileObject node = new TileObject(cellPos);
 
         int randomAux = 0;
-        TextAsset txt = (TextAsset)Resources.Load("chunk", typeof(TextAsset));
-        List<string> lines = new List<string>(txt.text.Split('\n'));
-        for(int lineCounter = lines.Count-1; lineCounter >= 0;lineCounter--)
+        for(int lineCounter = 0; lineCounter < lines.Count; lineCounter++)
         {
             //Debug.Log("lineCounter - " + lineCounter);
             for (int j = 0; j < lines[lineCounter].Length; j++)
@@ -125,7 +119,7 @@ public class GridManager : MonoBehaviour
     {
         Vector3 cellPosition = GetGridCellPosition(index);
         cellPosition.x += (gridCellSize / 2.0f);
-        cellPosition.y += (gridCellSize / 2.0f);
+        cellPosition.y -= (gridCellSize / 2.0f);
         return cellPosition;
     }
 
@@ -134,7 +128,7 @@ public class GridManager : MonoBehaviour
         int row = GetRow(index);
         int col = GetColumn(index);
         float xPosInGrid = col * gridCellSize;
-        float yPosInGrid = row * gridCellSize;
+        float yPosInGrid = -row * gridCellSize;
         return Origin + new Vector3(xPosInGrid, yPosInGrid, 0.0f);
     }
 
@@ -310,7 +304,7 @@ public class GridManager : MonoBehaviour
         // Draw the horizontal grid lines
         for (int i = 0; i < numRows + 1; i++)
         {
-            Vector3 startPos = origin + i * cellSize * new Vector3(0.0f, 1.0f, 0.0f);
+            Vector3 startPos = origin - i * cellSize * new Vector3(0.0f, 1.0f, 0.0f);
             Vector3 endPos = startPos + width * new Vector3(1.0f, 0.0f, 0.0f);
             Debug.DrawLine(startPos, endPos, color);
         }
@@ -319,7 +313,7 @@ public class GridManager : MonoBehaviour
         for (int i = 0; i < numCols + 1; i++)
         {
             Vector3 startPos = origin + i * cellSize * new Vector3(1.0f, 0.0f, 0.0f);
-            Vector3 endPos = startPos + height * new Vector3(0.0f, 1.0f, 0.0f);
+            Vector3 endPos = startPos - height * new Vector3(0.0f, 1.0f, 0.0f);
             Debug.DrawLine(startPos, endPos, color);
         }
     }
