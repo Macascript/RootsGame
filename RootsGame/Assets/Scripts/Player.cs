@@ -70,17 +70,22 @@ public class Player : MonoBehaviour
         if (node == null) return;
         else if (node.onStep())
         {
+            int nodeIndex = GridManager.instance.GetGridIndex(node.m_position);
+            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.m_position, terminaciones[0]);
+            actualNode.nextTileObject = GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)];
+            ((Root)actualNode).growAnimation();
+
             useWaterEnergy();
-            node = new Root(node.m_position, terminaciones[0]);
-            //actualNode = giro que corresponda
-            actualNode = node;
+            actualNode = actualNode.nextTileObject;
+
             if (!canMove()) gameOver();
         }
+        // else actualNode backwards animation
     }
 
     void gameOver()
     {
-
+        //TO DO
     }
 
     public void nextNode(Directions direction)
@@ -88,7 +93,6 @@ public class Player : MonoBehaviour
         if (direction == Directions.None) return;
 
         actualNode.nextTileObject = GridManager.instance.GetNeighbour(actualNode, direction);
-        //((Root)actualNode)
         goToNode(actualNode.nextTileObject);
     }
 }
