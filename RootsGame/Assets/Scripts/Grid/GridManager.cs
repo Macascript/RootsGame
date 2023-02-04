@@ -16,6 +16,9 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GameObject[] water;
 
+    [SerializeField]
+    private GameObject[] water_sin;
+
     public static GridManager instance
     {
         get
