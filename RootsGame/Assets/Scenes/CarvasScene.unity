@@ -319,6 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1908601387}
   - component: {fileID: 1908601388}
+  - component: {fileID: 1908601389}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -355,13 +356,106 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterEnergy: 3
   to_abajo: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
-  to_arriba: {fileID: 0}
-  to_izquierda: {fileID: 0}
-  to_derecha: {fileID: 0}
-  to_abajo_derecha: {fileID: 0}
-  to_abajo_izquierda: {fileID: 0}
-  to_arriba_derecha: {fileID: 0}
-  to_arriba_izquierda: {fileID: 0}
+  to_arriba: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_izquierda: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_abajo_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_abajo_izquierda: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_arriba_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_arriba_izquierda: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+--- !u!114 &1908601389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908601386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd7e68621577bf4488afbd833ee060f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minUmbralTime: 0.1
+  maxUmbralTime: 1
+  minUmbralDistance: 1
+  onLeft:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1908601388}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: nextLeftNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRight:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1908601388}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: nextRightNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onLeftDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1908601388}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: nextLeftDownNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onRightDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1908601388}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: nextRightDownNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1908601388}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: nextDownNode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onNone:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2144253586
 GameObject:
   m_ObjectHideFlags: 0
