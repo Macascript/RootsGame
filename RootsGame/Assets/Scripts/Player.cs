@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [Range(0, 9)]
     private int waterEnergy;
 
+    private bool food = false;
+
     private TileObject actualNode;
 
     [SerializeField]
@@ -43,6 +45,20 @@ public class Player : MonoBehaviour
     public int getWaterEnergy()
     {
         return waterEnergy;
+    }
+    public bool getFoodEnergy()
+    {
+        return food;
+    }
+
+    public void gainFoodEnergy()
+    {
+        food = true;
+    }
+
+    public void useFoodEnergy()
+    {
+        food = false;
     }
 
     public void useWaterEnergy(int water = 1)
