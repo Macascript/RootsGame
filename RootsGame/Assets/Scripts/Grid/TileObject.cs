@@ -15,18 +15,6 @@ public class TileObject : MonoBehaviour
 
     public TileObject(){}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public virtual bool canStep()
     {
         return true;

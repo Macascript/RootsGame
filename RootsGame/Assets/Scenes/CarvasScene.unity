@@ -274,7 +274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157051881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -293,9 +293,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96bcb1f33af092649bd1658f20ffce5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCellSize: 4096
+  sand:
+  - {fileID: 7720761689036432563, guid: 1ec94c65eb8f389499a937879ee9b876, type: 3}
+  - {fileID: 5778335307998691137, guid: 84fe719a381f08c478ba66161e24b81b, type: 3}
+  - {fileID: 289305413641677269, guid: 3533d18c1ef65504e960e0cd267fb107, type: 3}
+  rock: {fileID: 2629578611460974864, guid: a41faffaaf341924b9c9f69b378659ce, type: 3}
+  water: []
   showGrid: 1
-  player: {fileID: 0}
 --- !u!1 &2144253586
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144253586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 2.88, y: 3.88, z: -8.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

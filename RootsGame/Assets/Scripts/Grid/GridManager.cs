@@ -1,10 +1,20 @@
 using UnityEngine;
 using System.Collections;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using System.Collections.Generic;
 
 public class GridManager : MonoBehaviour
 {
     private static GridManager s_Instance = null;
+
+    [SerializeField]
+    private GameObject[] sand;
+
+    [SerializeField]
+    private GameObject rock;
+
+    [SerializeField]
+    private GameObject[] water;
 
     public static GridManager instance
     {
@@ -25,7 +35,7 @@ public class GridManager : MonoBehaviour
 
     private int numOfRows = 0;
     private int numOfColumns = 0;
-    private float gridCellSize = 4096;
+    private float gridCellSize = 0.64f;
     public bool showGrid = true;
     private Vector3 origin = new Vector3();
     public TileObject[,] nodes { get; set; }
@@ -64,31 +74,34 @@ public class GridManager : MonoBehaviour
         Vector3 cellPos = GetGridCellCenter(index);
         TileObject node = new TileObject(cellPos);
 
-        int lineCounter = 0;
-        foreach (string line in System.IO.File.ReadLines("Assets/Resources/chunk.txt"))
+        int randomAux = 0;
+        TextAsset txt = (TextAsset)Resources.Load("chunk", typeof(TextAsset));
+        List<string> lines = new List<string>(txt.text.Split('\n'));
+        for(int lineCounter = lines.Count-1; lineCounter >= 0;lineCounter--)
         {
-            Debug.Log("lineCounter - " + lineCounter);
-            for (int j = 0; j < line.Length; j++)
+            //Debug.Log("lineCounter - " + lineCounter);
+            for (int j = 0; j < lines[lineCounter].Length; j++)
             {   
                 cellPos = GetGridCellCenter(index);
-                Debug.Log("j - " + line[j]);
+                //Debug.Log("j - " + line[j]);
+                randomAux = Random.Range(0, 3);
 
-                switch (line[j])
+                switch (lines[lineCounter][j])
                 {
                     case 'A':
-                        node = new Sand(cellPos);
+                        node = new Sand(cellPos, sand[randomAux]);
                         break;
                     case 'B':
-                        node = new Rock(cellPos);
+                        node = new Rock(cellPos, sand[randomAux], rock);
                         break;
                     case 'C':
-                        node = new Water(cellPos, WaterType.Simple);
+                        node = new Water(cellPos, WaterType.Simple, sand[randomAux]);
                         break;
                     case 'D':
-                        node = new Water(cellPos, WaterType.Double);
+                        node = new Water(cellPos, WaterType.Double, sand[randomAux]);
                         break;
                     case 'E':
-                        node = new Water(cellPos, WaterType.Max);
+                        node = new Water(cellPos, WaterType.Max, sand[randomAux]);
                         break;
                     case 'F':
                         node = new Bug(cellPos);
@@ -105,7 +118,6 @@ public class GridManager : MonoBehaviour
                 nodes[j, lineCounter] = node;
                 index++;
             }
-            lineCounter++;
         }
     }
 
