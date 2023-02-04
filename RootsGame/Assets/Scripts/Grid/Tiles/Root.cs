@@ -22,15 +22,15 @@ public class Root : TileObject
 
     public void birthAnimation()
     {
-        if (anim == null)
-            anim = GetComponent<Animator>();
-        anim.SetTrigger("birth");
+        if (animator == null)
+            animator = GetComponent<Animator>();
+        animator.SetTrigger("birth");
     }
 
     public void growAnimation()
     {
-        if (anim == null)
-            anim = GetComponent<Animator>();
-        anim.SetTrigger("grow");
+        if (animator == null)
+            animator = GetComponent<Animator>();
+        animator.SetTrigger("grow");
     }
 }
