@@ -64,6 +64,7 @@ public class GridManager : MonoBehaviour
 
         numOfRows = lines.Count;
         numOfColumns = lines[0].Length;
+        if (lines[0][lines[0].Length - 1] == '\0') numOfColumns--;
 
         nodes = new TileObject[numOfColumns, numOfRows];
         int index = 0;
@@ -75,7 +76,9 @@ public class GridManager : MonoBehaviour
         {
             //Debug.Log("lineCounter - " + lineCounter);
             for (int j = 0; j < lines[lineCounter].Length; j++)
-            {   
+            {
+                if (lines[lineCounter][j] == '\0') continue;
+
                 cellPos = GetGridCellCenter(index);
                 //Debug.Log("j - " + line[j]);
                 randomAux = Random.Range(0, 3);
