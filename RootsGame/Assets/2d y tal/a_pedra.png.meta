@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 3f4fa0713dc022f4bbd145db03e26850
+=======
+guid: 7fadf3cae6f1c77428d797933275315a
+>>>>>>> 32b1479a61e92e7b4cefd57b5ca98b0070e7dce5
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,6 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
+<<<<<<< HEAD
     filterMode: 0
     aniso: 1
     mipBias: 0
@@ -43,6 +48,18 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
+=======
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 1
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 0
+>>>>>>> 32b1479a61e92e7b4cefd57b5ca98b0070e7dce5
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -53,7 +70,11 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
+<<<<<<< HEAD
   textureType: 8
+=======
+  textureType: 0
+>>>>>>> 32b1479a61e92e7b4cefd57b5ca98b0070e7dce5
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -70,7 +91,11 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
+<<<<<<< HEAD
     textureCompression: 0
+=======
+    textureCompression: 1
+>>>>>>> 32b1479a61e92e7b4cefd57b5ca98b0070e7dce5
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,6 +138,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<< HEAD
   - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -125,13 +151,19 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+=======
+>>>>>>> 32b1479a61e92e7b4cefd57b5ca98b0070e7dce5
   spriteSheet:
     serializedVersion: 2
     sprites: []
     outline: []
     physicsShape: []
     bones: []
+<<<<<<< HEAD
     spriteID: 5e97eb03825dee720800000000000000
+=======
+    spriteID: 
+>>>>>>> 32b1479a61e92e7b4cefd57b5ca98b0070e7dce5
     internalID: 0
     vertices: []
     indices: 
