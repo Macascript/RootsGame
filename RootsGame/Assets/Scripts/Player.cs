@@ -161,4 +161,11 @@ public class Player : MonoBehaviour
         actualNode.nextTileObject = GridManager.instance.GetNeighbour(actualNode, direction);
         goToNode(actualNode.nextTileObject, direction);
     }
+
+    public void nextRightNode() => nextNode(Directions.Right);
+    public void nextRightDownNode() => nextNode(Directions.RightDown);
+    public void nextDownNode() => nextNode(Directions.Down);
+    public void nextLeftDownNode() => nextNode(Directions.LeftDown);
+    public void nextLeftNode() => nextNode(Directions.Left);
+
 }
