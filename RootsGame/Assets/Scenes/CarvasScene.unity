@@ -350,10 +350,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterEnergy: 6
-  terminaciones:
-  - {fileID: 2629578611460974864, guid: a41faffaaf341924b9c9f69b378659ce, type: 3}
-  - {fileID: 2629578611460974864, guid: a41faffaaf341924b9c9f69b378659ce, type: 3}
-  - {fileID: 2629578611460974864, guid: a41faffaaf341924b9c9f69b378659ce, type: 3}
+  to_abajo: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_arriba: {fileID: 0}
+  to_izquierda: {fileID: 0}
+  to_derecha: {fileID: 0}
+  to_abajo_derecha: {fileID: 0}
+  to_abajo_izquierda: {fileID: 0}
+  to_arriba_derecha: {fileID: 0}
+  to_arriba_izquierda: {fileID: 0}
 --- !u!1 &2144253586
 GameObject:
   m_ObjectHideFlags: 0
