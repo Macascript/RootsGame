@@ -39,7 +39,7 @@ public class GridManager : MonoBehaviour
     public bool showGrid = true;
     private Vector3 origin = new Vector3();
     public TileObject[,] nodes { get; set; }
-    public Player player { get; private set; }
+    public Player player;
 
     public Vector3 Origin
     {
@@ -51,7 +51,6 @@ public class GridManager : MonoBehaviour
 
     private void Awake()
     {
-        player = new Player();
         CalculateTiles();
     }
 
@@ -62,7 +61,13 @@ public class GridManager : MonoBehaviour
         TextAsset txt = (TextAsset)Resources.Load("chunk", typeof(TextAsset));
         List<string> lines = new List<string>(txt.text.Split('\n'));
 
-        numOfRows = lines.Count;
+        TextAsset txt2 = (TextAsset)Resources.Load("chunk2", typeof(TextAsset));
+        List<string> lines2 = new List<string>(txt.text.Split('\n'));
+
+        TextAsset txt3 = (TextAsset)Resources.Load("chunk3", typeof(TextAsset));
+        List<string> lines3 = new List<string>(txt.text.Split('\n'));
+
+        numOfRows = lines.Count + lines2.Count + lines3.Count;
         numOfColumns = lines[0].Length;
         if (lines[0][lines[0].Length - 1] == '\0') numOfColumns--;
 

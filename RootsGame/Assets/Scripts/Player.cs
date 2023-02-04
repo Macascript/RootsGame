@@ -10,16 +10,13 @@ public class Player : MonoBehaviour
 
     private TileObject actualNode;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private GameObject[] terminaciones;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(waterEnergy > 9) waterEnergy = 9;
+        GridManager.instance.nodes[4, 0] = new Root(GridManager.instance.nodes[4, 0].m_position, terminaciones[0]);
+        actualNode = GridManager.instance.nodes[4, 0];
     }
 
     public int getWaterEnergy()
@@ -47,7 +44,10 @@ public class Player : MonoBehaviour
             case WaterType.Max:
                 waterEnergy = 9;
                 break;
+            default:
+                break;
         }
+        if (waterEnergy > 9) waterEnergy = 9;
     }
 
     public bool canMove()
@@ -71,6 +71,8 @@ public class Player : MonoBehaviour
         else if (node.onStep())
         {
             useWaterEnergy();
+            node = new Root(node.m_position, terminaciones[0]);
+            //actualNode = giro que corresponda
             actualNode = node;
             if (!canMove()) gameOver();
         }
@@ -86,6 +88,7 @@ public class Player : MonoBehaviour
         if (direction == Directions.None) return;
 
         actualNode.nextTileObject = GridManager.instance.GetNeighbour(actualNode, direction);
+        //((Root)actualNode)
         goToNode(actualNode.nextTileObject);
     }
 }
