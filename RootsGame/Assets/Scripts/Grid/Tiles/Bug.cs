@@ -16,6 +16,7 @@ public class Bug : TileObject
 
     public override bool onStep()
     {
+        GridManager.instance.player.useWaterEnergy(9);
         return false;
     }
 }

@@ -62,7 +62,7 @@ public class GridManager : MonoBehaviour
         TextAsset txt = (TextAsset)Resources.Load("chunk", typeof(TextAsset));
         List<string> lines = new List<string>(txt.text.Split('\n'));
 
-        numOfRows = lines.Count - 1;
+        numOfRows = lines.Count;
         numOfColumns = lines[0].Length;
 
         nodes = new TileObject[numOfColumns, numOfRows];
