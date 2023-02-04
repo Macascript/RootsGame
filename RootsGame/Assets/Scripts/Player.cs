@@ -11,11 +11,32 @@ public class Player : MonoBehaviour
     private TileObject actualNode;
 
     [SerializeField]
-    private GameObject[] terminaciones;
+    private GameObject to_abajo;
+
+    [SerializeField]
+    private GameObject to_arriba;
+
+    [SerializeField]
+    private GameObject to_izquierda;
+
+    [SerializeField]
+    private GameObject to_derecha;
+
+    [SerializeField]
+    private GameObject to_abajo_derecha;
+
+    [SerializeField]
+    private GameObject to_abajo_izquierda;
+
+    [SerializeField]
+    private GameObject to_arriba_derecha;
+
+    [SerializeField]
+    private GameObject to_arriba_izquierda;
 
     void Start()
     {
-        GridManager.instance.nodes[4, 0] = new Root(GridManager.instance.nodes[4, 0].m_position, terminaciones[0]);
+        GridManager.instance.nodes[4, 0] = new Root(GridManager.instance.nodes[4, 0].m_position, to_abajo);
         actualNode = GridManager.instance.nodes[4, 0];
     }
 
@@ -65,13 +86,43 @@ public class Player : MonoBehaviour
         return can;
     }
 
-    private void goToNode(TileObject node)
+    private void goToNode(TileObject node, Directions direction)
     {
         if (node == null) return;
         else if (node.onStep())
         {
             int nodeIndex = GridManager.instance.GetGridIndex(node.m_position);
-            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.m_position, terminaciones[0]);
+            GameObject auxObj = to_abajo;
+            switch (direction)
+            {
+                case Directions.Left:
+                    auxObj = to_izquierda;
+                    break;
+                case Directions.Right:
+                    auxObj = to_derecha;
+                    break;
+                case Directions.Up:
+                    auxObj = to_arriba;
+                    break;
+                case Directions.Down:
+                    auxObj = to_abajo;
+                    break;
+                case Directions.LeftDown:
+                    auxObj = to_abajo_izquierda;
+                    break;
+                case Directions.RightDown:
+                    auxObj = to_abajo_derecha;
+                    break;
+                case Directions.LeftUp:
+                    auxObj = to_arriba_izquierda;
+                    break;
+                case Directions.RightUp:
+                    auxObj = to_abajo_derecha;
+                    break;
+                default:
+                    break;
+            }
+            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.m_position, auxObj);
             actualNode.nextTileObject = GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)];
             ((Root)actualNode).growAnimation();
 
@@ -93,6 +144,6 @@ public class Player : MonoBehaviour
         if (direction == Directions.None) return;
 
         actualNode.nextTileObject = GridManager.instance.GetNeighbour(actualNode, direction);
-        goToNode(actualNode.nextTileObject);
+        goToNode(actualNode.nextTileObject, direction);
     }
 }
