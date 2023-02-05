@@ -12,7 +12,7 @@ public class Bug : TileObject
 
     public override bool canStep()
     {
-        return false;
+        return true;
     }
 
     public override bool onStep()
@@ -20,6 +20,6 @@ public class Bug : TileObject
         Debug.Log("onstep");
         GridManager.instance.player.useWaterEnergy(9);
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
-        return false;
+        return true;
     }
 }
