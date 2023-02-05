@@ -161,9 +161,15 @@ public class Player : MonoBehaviour
             useWaterEnergy();
             actualNode = actualNode.nextTileObject;
 
-            if (!canMove()) gameOver();
+            if (!canMove())
+            {
+                Debug.Log("cant move");
+                gameOver();
+            }
         }
         else if (GusanoBehaviour.listaIndices.ContainsValue(GridManager.instance.GetGridIndex(node.transform.position))){
+            Debug.Log("PAtat2 "+ GridManager.instance.GetGridIndex(node.transform.position));
+            Debug.Log(GusanoBehaviour.listaIndices);
             GridManager.instance.player.useWaterEnergy(9);
             GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
         }
@@ -185,7 +191,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(2f);
         while(Vector2.Distance(transform.position,finalPosGameOver.position) > 1f)
         {
-            Debug.Log(Vector2.Distance(transform.position, finalPosGameOver.position));
+            //Debug.Log(Vector2.Distance(transform.position, finalPosGameOver.position));
             transform.position += direction * gameOverSpeed * Time.deltaTime;
             yield return null;
         }

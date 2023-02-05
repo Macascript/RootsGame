@@ -268,7 +268,7 @@ public class GridManager : MonoBehaviour
 
     public Vector3 GetGridCellCenter(int index)
     {
-        Debug.Log(index + " Esto es Maca");
+        //Debug.Log(index + " Esto es Maca");
         Vector3 cellPosition = GetGridCellPosition(index);
         cellPosition.x += (gridCellSize / 2.0f);
         cellPosition.y -= (gridCellSize / 2.0f);
@@ -327,22 +327,22 @@ public class GridManager : MonoBehaviour
         int column = GetColumn(neighborIndex);
         //int counter = 0;
         //Bottom
-        int leftNodeRow = row - 1;
+        int leftNodeRow = row + 1;
         int leftNodeColumn = column;
         neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Top
-        leftNodeRow = row + 1;
+        leftNodeRow = row - 1;
         leftNodeColumn = column;
         //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Top Right
-        leftNodeRow = row + 1;
+        leftNodeRow = row - 1;
         leftNodeColumn = column + 1;
         //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Top Left
-        leftNodeRow = row + 1;
+        leftNodeRow = row - 1;
         leftNodeColumn = column - 1;
         //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
@@ -357,12 +357,12 @@ public class GridManager : MonoBehaviour
         neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Bottom Right
-        leftNodeRow = row - 1;
+        leftNodeRow = row + 1;
         leftNodeColumn = column + 1;
         neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Bottom Left
-        leftNodeRow = row - 1;
+        leftNodeRow = row + 1;
         leftNodeColumn = column - 1;
         neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
 

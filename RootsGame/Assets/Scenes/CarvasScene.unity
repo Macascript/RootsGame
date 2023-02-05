@@ -2422,7 +2422,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ac50895d2fbb80f4cafd39b62fd83502, type: 3}
   - {fileID: 21300000, guid: b3cae330c8929634484f9e39ee7a5363, type: 3}
   sol: {fileID: 21300000, guid: aec36e820ad5bcf46b5c007c2346f63e, type: 3}
-  solAnim: {fileID: 0}
+  solAnim: {fileID: 4094423966149033273, guid: c7ed909c0192d894fa5b0eafc727bf31, type: 3}
   m_source: {fileID: 1983245528}
 --- !u!82 &1983245528
 AudioSource:

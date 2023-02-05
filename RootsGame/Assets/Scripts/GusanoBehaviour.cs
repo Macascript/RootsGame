@@ -90,6 +90,7 @@ public class GusanoBehaviour : MonoBehaviour
         {
             if (((Root)o).isChikito())
             {
+                Debug.Log("patata mia");
                 GridManager.instance.player.useWaterEnergy(9);
                 GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
             }
