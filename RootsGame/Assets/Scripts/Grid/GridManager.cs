@@ -19,6 +19,15 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GameObject[] water_sin;
 
+    [SerializeField]
+    private GameObject bug;
+
+    [SerializeField]
+    private GameObject food;
+
+    [SerializeField]
+    private GameObject powerUp;
+
     public static GridManager instance
     {
         get
@@ -207,54 +216,54 @@ public class GridManager : MonoBehaviour
         return col;
     }
 
-    public TileObject[] GetNeighbours(TileObject node)
+    public List<TileObject> GetNeighbours(TileObject node)
     {
-        TileObject[] neighbors = new TileObject[8];
+        //TileObject[] neighbors = {null, null, null, null, null, null, null, null};
+        List<TileObject> neighbors = new List<TileObject>();
         Vector3 neighborPos = node.transform.position;
         int neighborIndex = GetGridIndex(neighborPos);
         int row = GetRow(neighborIndex);
         int column = GetColumn(neighborIndex);
-        int counter = 0;
+        //int counter = 0;
         //Bottom
         int leftNodeRow = row - 1;
         int leftNodeColumn = column;
-        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
-        counter++;
+        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //counter++;
         //Top
         leftNodeRow = row + 1;
         leftNodeColumn = column;
-        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
-        counter++;
+        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //counter++;
         //Diagonal Top Right
         leftNodeRow = row + 1;
         leftNodeColumn = column + 1;
-        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
-        counter++;
+        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //counter++;
         //Diagonal Top Left
         leftNodeRow = row + 1;
         leftNodeColumn = column - 1;
-        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
-        counter++;
+        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //counter++;
         //Right
         leftNodeRow = row;
         leftNodeColumn = column + 1;
-        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
-        counter++;
+        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //counter++;
         //Left
         leftNodeRow = row;
         leftNodeColumn = column - 1;
-        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
-        counter++;
+        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //counter++;
         //Diagonal Bottom Right
         leftNodeRow = row - 1;
         leftNodeColumn = column + 1;
-        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
-        counter++;
+        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //counter++;
         //Diagonal Bottom Left
         leftNodeRow = row - 1;
         leftNodeColumn = column - 1;
-        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
-        counter++;
+        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
 
         return neighbors;
     }
@@ -322,6 +331,7 @@ public class GridManager : MonoBehaviour
 
     //TileObject[] AssignNeighbourArray(int row, int column)
     //{
+    //    int counter = 0;
     //    TileObject[] neighbors = { };
     //    if (row != -1 && column != -1 && row < numOfRows && column < numOfColumns)
     //    {

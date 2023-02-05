@@ -1,13 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream:RootsGame/Assets/2d y tal/brilli brilli.png.meta
-guid: 59f68f05f02d90644a4cd0fd47b01d1d
-=======
-guid: 88d34a23606b01e46b7e59576b6108cb
->>>>>>> Stashed changes:RootsGame/Assets/2d y tal/agua3.png.meta
-=======
-guid: 635308e6bd7a1634ca62f67edc3ae07a
->>>>>>> Stashed changes
+guid: 32e5ebfdaab8f794cb1a3d04368c90c6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,7 +113,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< Updated upstream
   - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
@@ -134,8 +125,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-=======
->>>>>>> Stashed changes
   spriteSheet:
     serializedVersion: 2
     sprites: []
