@@ -64,6 +64,7 @@ public class GusanoBehaviour : MonoBehaviour
         if (steps > 0 && steps < tam-1)
         {
             GusanoBehaviour b = Instantiate(body, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
+            b.pointsPrefab = pointsPrefab;
             b.BeginBehaviour();
         }else if (steps == tam - 1)
         {
