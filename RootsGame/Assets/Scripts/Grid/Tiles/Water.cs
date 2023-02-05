@@ -5,16 +5,16 @@ using UnityEngine;
 public class Water : TileObject
 {
     [SerializeField] private Sprite drinked;
-    public Water(Vector3 pos, WaterType wType, GameObject randomSand, GameObject water)
-    {
-        m_position = pos;
-        type = wType;
-        Instantiate(randomSand, this.m_position, Quaternion.identity);
-        GameObject waterObj = Instantiate(water, this.m_position, Quaternion.identity);
-        if(type != WaterType.Max) waterObj.transform.Rotate(new Vector3(0.0f,0.0f, Random.Range(0, 4) * 90));
-    }
+    //public Water(Vector3 pos, WaterType wType, GameObject randomSand, GameObject water)
+    //{
+    //    transform.position = pos;
+    //    type = wType;
+    //    Instantiate(randomSand, this.transform.position, Quaternion.identity);
+    //    GameObject waterObj = Instantiate(water, this.transform.position, Quaternion.identity);
+    //    if(type != WaterType.Max) waterObj.transform.Rotate(new Vector3(0.0f,0.0f, Random.Range(0, 4) * 90));
+    //}
 
-    private WaterType type;
+    [SerializeField] private WaterType type;
 
     public override bool canStep()
     {

@@ -7,11 +7,11 @@ public class Root : TileObject
     [SerializeField] private GameObject dust;
     private GameObject actualDust;
 
-    public Root(Vector3 pos, GameObject terminacion)
-    {
-        m_position = pos;
-        Instantiate(terminacion, this.m_position, Quaternion.identity);
-    }
+    //public Root(Vector3 pos, GameObject terminacion)
+    //{
+    //    transform.position = pos;
+    //    Instantiate(terminacion, this.transform.position, Quaternion.identity).AddComponent<Root>();
+    //}
 
     public override bool canStep()
     {

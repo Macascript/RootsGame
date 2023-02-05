@@ -8,9 +8,9 @@ public class Player : MonoBehaviour
     [Range(0, 9)]
     private int waterEnergy;
 
-    private bool food = false;
+    private bool food = true;
 
-    private TileObject actualNode;
+    private TileObject actualNode = null;
 
     [SerializeField]
     private GameObject to_abajo;
@@ -38,8 +38,14 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        GridManager.instance.nodes[4, 0] = new Root(GridManager.instance.nodes[4, 0].m_position, to_abajo);
+        GridManager.instance.nodes[4, 0] = Instantiate(to_abajo, GridManager.instance.nodes[4, 0].transform.position, Quaternion.identity).GetComponent<Root>();
+        //actualNode = new Root(GridManager.instance.nodes[4, 0].transform.position, to_abajo);
         actualNode = GridManager.instance.nodes[4, 0];
+    }
+
+    private void Update()
+    {
+        this.transform.position = actualNode.transform.position;
     }
 
     public int getWaterEnergy()
@@ -89,10 +95,9 @@ public class Player : MonoBehaviour
 
     public bool canMove()
     {
-        if(waterEnergy <= 0) return false;
+        if(waterEnergy == 0) return false;
 
-        TileObject[] neighbours = {};
-        GridManager.instance.GetNeighbours(actualNode, neighbours);
+        TileObject[] neighbours = GridManager.instance.GetNeighbours(actualNode);
         bool can = false;
         int i = 0;
         while(!can)
@@ -104,10 +109,14 @@ public class Player : MonoBehaviour
 
     private void goToNode(TileObject node, Directions direction)
     {
-        if (node == null) return;
+        if (node == null)
+        {
+            Debug.Log("null");
+            return;
+        }
         else if (node.onStep())
         {
-            int nodeIndex = GridManager.instance.GetGridIndex(node.m_position);
+            int nodeIndex = GridManager.instance.GetGridIndex(node.transform.position);
             GameObject auxObj = to_abajo;
             switch (direction)
             {
@@ -138,7 +147,8 @@ public class Player : MonoBehaviour
                 default:
                     break;
             }
-            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.m_position, auxObj);
+            //GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.transform.position, auxObj);
+            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = Instantiate(auxObj, node.transform.position, Quaternion.identity).GetComponent<Root>();
             actualNode.nextTileObject = GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)];
             ((Root)actualNode).growAnimation(direction);
 
@@ -151,7 +161,7 @@ public class Player : MonoBehaviour
 
     void gameOver()
     {
-        //TO DO
+        Debug.Log("gameOver");
     }
 
     public void nextNode(Directions direction)

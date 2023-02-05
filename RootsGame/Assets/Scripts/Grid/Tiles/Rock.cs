@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Rock : TileObject
 {
-    public Rock(Vector3 pos, GameObject randomSand, GameObject rock)
-    {
-        m_position = pos;
-        Instantiate(randomSand, this.m_position, Quaternion.identity);
-        Instantiate(rock, this.m_position, Quaternion.identity);
-    }
+    //public Rock(Vector3 pos, GameObject randomSand, GameObject rock)
+    //{
+    //    transform.position = pos;
+    //    Instantiate(randomSand, this.transform.position, Quaternion.identity);
+    //    Instantiate(rock, this.transform.position, Quaternion.identity);
+    //}
 
     public override bool canStep()
     {
@@ -18,6 +18,12 @@ public class Rock : TileObject
 
     public override bool onStep()
     {
-        return false;
+        if (GridManager.instance.player.getFoodEnergy())
+        {
+            GridManager.instance.player.useFoodEnergy();
+            Destroy(gameObject);
+            return true;
+        }
+        else return false;
     }
 }
