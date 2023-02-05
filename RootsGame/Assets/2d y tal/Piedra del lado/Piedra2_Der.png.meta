@@ -1,6 +1,5 @@
 fileFormatVersion: 2
-
-guid: 8e751c48c4836a14aa43d9911203eb1f
+guid: 9bf0ebe527fdce4448a458b62f27bf91
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,13 +33,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 1
   lightmap: 0
   compressionQuality: 50
@@ -55,11 +53,7 @@ TextureImporter:
   alphaUsage: 1
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-<<<<<<< HEAD
-  textureType: 8
-=======
   textureType: 0
->>>>>>> a2b96c5706bdebad53602aa6f98b9bcad21527cb
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -76,11 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-<<<<<<< HEAD
     textureCompression: 1
-=======
-    textureCompression: 0
->>>>>>> a2b96c5706bdebad53602aa6f98b9bcad21527cb
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,21 +113,6 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-<<<<<<< HEAD
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-=======
->>>>>>> a2b96c5706bdebad53602aa6f98b9bcad21527cb
   spriteSheet:
     serializedVersion: 2
     sprites: []
