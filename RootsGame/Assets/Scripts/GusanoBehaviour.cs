@@ -37,7 +37,7 @@ public class GusanoBehaviour : MonoBehaviour
     private float WhichDirection(Vector3 nextPos)
     {
         Vector2 direction = (nextPos - transform.position).normalized;
-        float angle = Vector2.SignedAngle(Vector2.right, direction);
+        float angle = Vector2.SignedAngle(Vector2.right, direction)+180f;
         //if (angle >= -15f && angle <= 15f)
         //    return Directions.Right;
         //if (angle > 15f && angle <= 75f)
@@ -59,23 +59,30 @@ public class GusanoBehaviour : MonoBehaviour
         return angle;
     }
 
+    private IEnumerator DOMove(Vector3 pos)
+    {
+        yield return null;
+    }
+
     private void NextStep()
     {
         if (steps > 0 && steps < tam-1)
         {
             GusanoBehaviour b = Instantiate(body, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
             b.pointsPrefab = pointsPrefab;
-            b.BeginBehaviour();
+            //b.BeginBehaviour();
         }else if (steps == tam - 1)
         {
             GusanoBehaviour b = Instantiate(tail, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
+            b.pointsPrefab = pointsPrefab;
         }
         int i = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
         TileObject o = GridManager.instance.nodes[GridManager.instance.GetColumn(i), GridManager.instance.GetRow(i)];
         if (o is Root)
         {
             Debug.Log("OSTIA RAMA");
-            pointsIndex += (2 * sentido) % pointsPrefab.transform.childCount;
+            sentido *= -1;
+            pointsIndex = (pointsIndex + 2 * sentido) % pointsPrefab.transform.childCount;
         }
         transform.DOMove(pointsPrefab.transform.GetChild(pointsIndex).position, Duration(pointsPrefab.transform.GetChild(pointsIndex).position)).SetEase(Ease.Linear).OnComplete(NextStep);
         transform.rotation = Quaternion.Euler(0, 0, WhichDirection(pointsPrefab.transform.GetChild(pointsIndex).position));
@@ -109,8 +116,8 @@ public class GusanoBehaviour : MonoBehaviour
         //        anim.SetInteger("index", 0);
         //        break;
         //}
-        pointsIndex += (1 * sentido) % pointsPrefab.transform.childCount;
-        Debug.Log("Hemos llegao al punto, siguiente: " + pointsIndex);
+        pointsIndex = (pointsIndex + sentido) % pointsPrefab.transform.childCount;
+        Debug.Log("Hemos llegao al punto, siguiente: " + pointsIndex+" y somos "+name);
         steps++;
         // TODO: Decirle al código de jaime que ya no estoy aquí, que estoy allí
     }

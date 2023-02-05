@@ -16,6 +16,9 @@ public class Water : TileObject
 
     [SerializeField] private WaterType type;
 
+    [SerializeField]
+    private AudioSource m_Source;
+
     public override bool canStep()
     {
         return true;
@@ -26,6 +29,7 @@ public class Water : TileObject
         GridManager.instance.player.gainWaterEnergy(type);
         GetComponent<SpriteRenderer>().sprite = drinked;
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect();
+        m_Source.Play();
         return true;
     }
 }

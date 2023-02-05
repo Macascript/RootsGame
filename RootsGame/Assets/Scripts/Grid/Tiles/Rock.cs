@@ -10,6 +10,11 @@ public class Rock : TileObject
     //    Instantiate(randomSand, this.transform.position, Quaternion.identity);
     //    Instantiate(rock, this.transform.position, Quaternion.identity);
     //}
+    [SerializeField]
+    private AudioSource m_SourceWrong;
+
+    [SerializeField]
+    private AudioSource m_SourceCorrect;
 
     public override bool canStep()
     {
@@ -28,6 +33,7 @@ public class Rock : TileObject
         else
         {
             GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
+            m_SourceWrong.Play();
             return false;
         }
     }
