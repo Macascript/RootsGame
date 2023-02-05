@@ -320,7 +320,12 @@ MonoBehaviour:
   - {fileID: 6447814192157936415, guid: 1069334dc78c861408e0b4e582d1f384, type: 3}
   - {fileID: 6169204816262037814, guid: 08ab5107db991254b857d76af242f34f, type: 3}
   virtualCamera: {fileID: 501867022}
-  recorrido1: {fileID: 2288905650904047830, guid: 8754fdbe2a5473341930488f73bb7a16, type: 3}
+  recorridos:
+  - {fileID: 2288905650904047830, guid: 8754fdbe2a5473341930488f73bb7a16, type: 3}
+  - {fileID: 1036666138734745798, guid: c06ea4dad4069ce4a800e0c4281975dd, type: 3}
+  - {fileID: 3032732714345575183, guid: 340e523541294134e982f6c3c23be0e4, type: 3}
+  - {fileID: 1702313103846009446, guid: 44d7fccd5d2984a44966c9b5fb1ca741, type: 3}
+  - {fileID: 2303407004694274029, guid: ce9145e0dc448504e87e3a14fa2d0a9e, type: 3}
   showGrid: 1
   player: {fileID: 1908601388}
 --- !u!1 &501867022
