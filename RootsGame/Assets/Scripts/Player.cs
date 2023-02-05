@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float gameOverSpeed = 3f;
     [SerializeField] private GameObject panelGameOver,panelWin;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip gameOverAudio, winAudio;
+
     void Start()
     {
         Instantiate(GridManager.instance.tallos[0], GridManager.instance.nodes[4, 0].transform.position + Vector3.up * 0.64f, Quaternion.identity);
@@ -179,6 +182,8 @@ public class Player : MonoBehaviour
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().StopShaking();
         FindObjectOfType<GestureDetector>().enabled = false;
         Vector3 direction = (finalPosGameOver.position - transform.position).normalized;
+        audioSource.PlayOneShot(gameOverAudio);
+        yield return new WaitForSeconds(2f);
         while(Vector2.Distance(transform.position,finalPosGameOver.position) > 1f)
         {
             transform.position += direction * gameOverSpeed * Time.deltaTime;
@@ -191,6 +196,7 @@ public class Player : MonoBehaviour
     public void Win()
     {
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect(false);
+        audioSource.PlayOneShot(winAudio);
         StartCoroutine(gameOverCoroutine(panelWin));
     }
 
