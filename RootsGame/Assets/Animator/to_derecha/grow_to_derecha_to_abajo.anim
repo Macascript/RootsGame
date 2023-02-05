@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: idle_grow_to_derecha_abajo_to_izq_abajo
+  m_Name: grow_to_derecha_to_abajo
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: a87f1c7f89b24b54d828040faaabb87f, type: 3}
+      value: {fileID: 21300000, guid: aee93a184d0be734aa1faeefd6a2a834, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -40,7 +40,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: a87f1c7f89b24b54d828040faaabb87f, type: 3}
+    - {fileID: 21300000, guid: aee93a184d0be734aa1faeefd6a2a834, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
