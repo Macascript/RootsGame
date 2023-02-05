@@ -14,6 +14,9 @@ public class Root : TileObject
     //    Instantiate(terminacion, this.transform.position, Quaternion.identity).AddComponent<Root>();
     //}
 
+    [SerializeField]
+    private AudioSource m_Source;
+
     public override bool canStep()
     {
         return false;
@@ -22,6 +25,7 @@ public class Root : TileObject
     public override bool onStep()
     {
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
+        m_Source.Play();
         return false;
     }
 
