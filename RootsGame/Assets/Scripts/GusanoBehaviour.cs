@@ -70,10 +70,11 @@ public class GusanoBehaviour : MonoBehaviour
         {
             GusanoBehaviour b = Instantiate(body, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
             b.pointsPrefab = pointsPrefab;
-            b.BeginBehaviour();
+            //b.BeginBehaviour();
         }else if (steps == tam - 1)
         {
             GusanoBehaviour b = Instantiate(tail, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
+            b.pointsPrefab = pointsPrefab;
         }
         int i = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
         TileObject o = GridManager.instance.nodes[GridManager.instance.GetColumn(i), GridManager.instance.GetRow(i)];
