@@ -7,6 +7,7 @@ public class Root : TileObject
     [SerializeField] private GameObject dust;
     private GameObject actualDust;
     [SerializeField] private GameObject piquitoLeftDownArriba, piquitoLeftDownAbajo,piquitoRightDownArriba,piquitoRightDownAbajo;
+    private bool isChiquito = true;
 
     //public Root(Vector3 pos, GameObject terminacion)
     //{
@@ -56,6 +57,7 @@ public class Root : TileObject
             Instantiate(piquitoRightDownArriba,transform.position + Vector3.right * 0.64f,Quaternion.identity); //derecha
             Instantiate(piquitoRightDownAbajo,transform.position + Vector3.down * 0.64f,Quaternion.identity); //abajo
         }
+        isChiquito = false;
     }
 
     public void instanceDust()
@@ -66,5 +68,10 @@ public class Root : TileObject
     public void destroyDust()
     {
         Destroy(actualDust);
+    }
+
+    public bool isChikito()
+    {
+        return isChiquito;
     }
 }

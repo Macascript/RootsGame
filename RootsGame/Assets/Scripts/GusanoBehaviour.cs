@@ -88,9 +88,18 @@ public class GusanoBehaviour : MonoBehaviour
         TileObject o = GridManager.instance.nodes[GridManager.instance.GetColumn(i), GridManager.instance.GetRow(i)];
         if (o is Root)
         {
-            Debug.Log("OSTIA RAMA");
-            sentido *= -1;
-            pointsIndex = (pointsIndex + 2 * sentido) % pointsPrefab.transform.childCount;
+            if (((Root)o).isChikito())
+            {
+                GridManager.instance.player.useWaterEnergy(9);
+                GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
+            }
+            else
+            {
+                Debug.Log("OSTIA RAMA");
+                sentido *= -1;
+                pointsIndex = (pointsIndex + 2 * sentido) % pointsPrefab.transform.childCount;
+            }
+            
         }
         transform.DOMove(pointsPrefab.transform.GetChild(pointsIndex).position, Duration(pointsPrefab.transform.GetChild(pointsIndex).position)).SetEase(Ease.Linear).OnComplete(NextStep);
         transform.rotation = Quaternion.Euler(0, 0, WhichDirection(pointsPrefab.transform.GetChild(pointsIndex).position));

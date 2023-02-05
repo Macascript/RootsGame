@@ -168,6 +168,10 @@ public class Player : MonoBehaviour
 
             if (!canMove()) gameOver();
         }
+        else if (GusanoBehaviour.listaIndices.ContainsValue(GridManager.instance.GetGridIndex(node.transform.position))){
+            GridManager.instance.player.useWaterEnergy(9);
+            GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
+        }
     }
 
     void gameOver()
