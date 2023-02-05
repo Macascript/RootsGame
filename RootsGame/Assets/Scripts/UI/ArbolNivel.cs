@@ -12,28 +12,30 @@ public class ArbolNivel : MonoBehaviour
     private AudioSource m_source;
 
     private int index = 0;
-    private bool levelUp = false;
+    private bool levelUp = true;
+    private bool levelUp2 = true;
 
     private void Update()
     {
         if (GridManager.instance.GetGridIndex(GridManager.instance.player.transform.position) > 161 && levelUp)
         {
-            levelUp = true;
+            levelUp = false;
             index = 1;
-            if(levelUp)
             m_source.Play();
             StartCoroutine(changeLevel());
         }    
-        if (GridManager.instance.GetGridIndex(GridManager.instance.player.transform.position) > 363)
+        if (GridManager.instance.GetGridIndex(GridManager.instance.player.transform.position) > 363 && levelUp2)
         {
+            levelUp2 = false;
             index = 2;
             m_source.Play();
+            StartCoroutine(changeLevel());
         }      
     }
 
     private IEnumerator changeLevel()
     {
-        //sol
+        //sol con animacion
         yield return new WaitForSeconds(5);
         GetComponent<Image>().sprite = arboles[index];
     }
