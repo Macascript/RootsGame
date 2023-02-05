@@ -36,6 +36,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject to_arriba_izquierda;
 
+    [SerializeField] private Transform finalPosGameOver;
+    [SerializeField] private float gameOverSpeed = 3f;
+    [SerializeField] private GameObject panelGameOver,panelWin;
+
     void Start()
     {
         Instantiate(GridManager.instance.tallos[0], GridManager.instance.nodes[4, 0].transform.position + Vector3.up * 0.64f, Quaternion.identity);
@@ -166,6 +170,28 @@ public class Player : MonoBehaviour
     void gameOver()
     {
         Debug.Log("gameOver");
+        GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong(false);
+        StartCoroutine(gameOverCoroutine(panelGameOver));
+    }
+    private IEnumerator gameOverCoroutine(GameObject panel)
+    {
+        yield return new WaitForSeconds(1f);
+        GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().StopShaking();
+        FindObjectOfType<GestureDetector>().enabled = false;
+        Vector3 direction = (finalPosGameOver.position - transform.position).normalized;
+        while(Vector2.Distance(transform.position,finalPosGameOver.position) > 1f)
+        {
+            transform.position += direction * gameOverSpeed * Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSeconds(3f);
+        panel.SetActive(true);
+    }
+
+    public void Win()
+    {
+        GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect(false);
+        StartCoroutine(gameOverCoroutine(panelWin));
     }
 
     public void nextNode(Directions direction)

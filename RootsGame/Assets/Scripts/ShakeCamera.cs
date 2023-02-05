@@ -29,7 +29,7 @@ public class ShakeCamera : MonoBehaviour
 
     [SerializeField] private GestureDetector gestures;
 
-    public void ShakeCameraCorrect()
+    public void ShakeCameraCorrect(bool ok = true)
     {
         CinemachineBasicMultiChannelPerlin perlin = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         perlin.m_FrequencyGain = correctFrequency;
@@ -40,10 +40,11 @@ public class ShakeCamera : MonoBehaviour
         //shakeTimer = correctTime;
         //shakeTimerTotal = correctTime;
         gestures.enabled = false;
-        Invoke("StopShaking", correctTime);
+        if (ok)
+            Invoke("StopShaking", correctTime);
     }
 
-    public void ShakeCameraWrong()
+    public void ShakeCameraWrong(bool ok = true)
     {
         CinemachineBasicMultiChannelPerlin perlin = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         perlin.m_FrequencyGain = wrongFrequency;
@@ -54,10 +55,11 @@ public class ShakeCamera : MonoBehaviour
         //shakeTimer = wrongTime;
         //shakeTimerTotal = wrongTime;
         gestures.enabled = false;
-        Invoke("StopShaking", wrongTime);
+        if (ok)
+            Invoke("StopShaking", wrongTime);
     }
 
-    private void StopShaking()
+    public void StopShaking()
     {
         CinemachineBasicMultiChannelPerlin perlin = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         perlin.m_AmplitudeGain = 0f;
