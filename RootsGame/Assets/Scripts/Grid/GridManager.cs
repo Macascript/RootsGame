@@ -212,9 +212,8 @@ public class GridManager : MonoBehaviour
                         break;
                     case 'H':
                         //node = new PowerUp(cellPos, sand[randomAux]);
-                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Bug>();
-                        node.gameObject.GetComponent<GusanoBehaviour>().pointsPrefab = recorridos[gusanitos];
+                        node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
+                        Instantiate(bug, cellPos, Quaternion.identity).GetComponent<GusanoBehaviour>().pointsPrefab = recorridos[gusanitos];
                         gusanitos++;
                         break;
                     case 'I':
