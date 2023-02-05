@@ -121,4 +121,4 @@ MonoBehaviour:
   m_position: {x: 0, y: 0, z: 0}
   nextTileObject: {fileID: 0}
   animator: {fileID: 0}
-  dust: {fileID: 0}
+  dust: {fileID: 2028585435747362338, guid: 1903a412933bfb0428331ee7cc8e28ac, type: 3}
