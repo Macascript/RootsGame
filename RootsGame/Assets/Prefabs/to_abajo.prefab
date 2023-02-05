@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1198803617629829538}
   - component: {fileID: 1198803617629829537}
   - component: {fileID: -5783673200317368050}
+  - component: {fileID: 5264594059709417388}
   m_Layer: 0
   m_Name: to_abajo
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: c212b072ac71985419ebed7071fd2da0, type: 3}
   m_Color: {r: 0.49019608, g: 0.34901962, b: 0.24705882, a: 1}
   m_FlipX: 0
@@ -105,3 +106,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &5264594059709417388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198803617629829536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0caeae25b5036a346a48be7a40aa29dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_position: {x: 0, y: 0, z: 0}
+  nextTileObject: {fileID: 0}
+  animator: {fileID: 0}
+  dust: {fileID: 0}

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Sand : TileObject
 {
-    public Sand(Vector3 pos, GameObject randomSand)
-    {
-        m_position = pos;
-        Instantiate(randomSand, this.m_position, Quaternion.identity);
-    }
+    //public Sand(Vector3 pos, GameObject randomSand)
+    //{
+    //    transform.position = pos;
+    //    Instantiate(randomSand, this.transform.position, Quaternion.identity);
+    //}
 
     public override bool canStep()
     {

@@ -90,7 +90,7 @@ public class GridManager : MonoBehaviour
     void loadLevel(List<string> lines)
     {
         Vector3 cellPos = GetGridCellCenter(index);
-        TileObject node = new TileObject(cellPos);
+        TileObject node = null;
 
         int randomAux = 0;
         for (int i = 0; i < lines.Count; i++)
@@ -107,28 +107,45 @@ public class GridManager : MonoBehaviour
                 switch (lines[i][j])
                 {
                     case 'A':
-                        node = new Sand(cellPos, sand[randomAux]);
+                        //node = new Sand(cellPos, sand[randomAux]);
+                        node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
                         break;
                     case 'B':
-                        node = new Rock(cellPos, sand[randomAux], rock);
+                        //node = new Rock(cellPos, sand[randomAux], rock);
+                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        node = Instantiate(rock, cellPos, Quaternion.identity).GetComponent<Rock>();
                         break;
                     case 'C':
-                        node = new Water(cellPos, WaterType.Simple, sand[randomAux], water[0]);
+                        //node = new Water(cellPos, WaterType.Simple, sand[randomAux], water[0]);
+                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        node = Instantiate(water[0], cellPos, Quaternion.identity).GetComponent<Water>();
+                        node.transform.Rotate(new Vector3(0.0f, 0.0f, Random.Range(0, 4) * 90));
                         break;
                     case 'D':
-                        node = new Water(cellPos, WaterType.Double, sand[randomAux], water[1]);
+                        //node = new Water(cellPos, WaterType.Double, sand[randomAux], water[1]);
+                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        node = Instantiate(water[1], cellPos, Quaternion.identity).GetComponent<Water>();
+                        node.transform.Rotate(new Vector3(0.0f, 0.0f, Random.Range(0, 4) * 90));
                         break;
                     case 'E':
-                        node = new Water(cellPos, WaterType.Max, sand[randomAux], water[2]);
+                        //node = new Water(cellPos, WaterType.Max, sand[randomAux], water[2]);
+                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        node = Instantiate(water[2], cellPos, Quaternion.identity).GetComponent<Water>();
                         break;
                     case 'F':
-                        node = new Bug(cellPos, sand[randomAux]);
+                        //node = new Bug(cellPos, sand[randomAux]);
+                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        //node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Bug>();
                         break;
                     case 'G':
-                        node = new Food(cellPos, sand[randomAux]);
+                        //node = new Food(cellPos, sand[randomAux]);
+                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        //node = Instantiate(food, cellPos, Quaternion.identity).GetComponent<Food>();
                         break;
                     case 'H':
-                        node = new PowerUp(cellPos, sand[randomAux]);
+                        //node = new PowerUp(cellPos, sand[randomAux]);
+                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        //node = Instantiate(powerUp, cellPos, Quaternion.identity).GetComponent<PowerUp>();
                         break;
                     default:
                         break;
@@ -166,7 +183,7 @@ public class GridManager : MonoBehaviour
 
         pos -= Origin;
         int col = (int)(pos.x / gridCellSize);
-        int row = (int)(pos.y / gridCellSize);
+        int row = (int)(-pos.y / gridCellSize);
         return (row * numOfColumns + col);
     }
 
@@ -175,7 +192,7 @@ public class GridManager : MonoBehaviour
         float width = numOfColumns * gridCellSize;
         float height = numOfRows * gridCellSize;
         return (pos.x >= Origin.x && pos.x <= Origin.x + width &&
-        pos.x <= Origin.y + height && pos.y >= Origin.y);
+        pos.x >= Origin.y - height && pos.y <= Origin.y);
     }
 
     public int GetRow(int index)
@@ -190,49 +207,61 @@ public class GridManager : MonoBehaviour
         return col;
     }
 
-    public void GetNeighbours(TileObject node, TileObject[] neighbors)
+    public TileObject[] GetNeighbours(TileObject node)
     {
-        Vector3 neighborPos = node.m_position;
+        TileObject[] neighbors = new TileObject[8];
+        Vector3 neighborPos = node.transform.position;
         int neighborIndex = GetGridIndex(neighborPos);
         int row = GetRow(neighborIndex);
         int column = GetColumn(neighborIndex);
+        int counter = 0;
         //Bottom
         int leftNodeRow = row - 1;
         int leftNodeColumn = column;
-        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
+        counter++;
         //Top
         leftNodeRow = row + 1;
         leftNodeColumn = column;
-        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
+        counter++;
         //Diagonal Top Right
         leftNodeRow = row + 1;
         leftNodeColumn = column + 1;
-        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
+        counter++;
         //Diagonal Top Left
         leftNodeRow = row + 1;
         leftNodeColumn = column - 1;
-        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
+        counter++;
         //Right
         leftNodeRow = row;
         leftNodeColumn = column + 1;
-        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
+        counter++;
         //Left
         leftNodeRow = row;
         leftNodeColumn = column - 1;
-        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
+        counter++;
         //Diagonal Bottom Right
         leftNodeRow = row - 1;
         leftNodeColumn = column + 1;
-        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
+        counter++;
         //Diagonal Bottom Left
         leftNodeRow = row - 1;
         leftNodeColumn = column - 1;
-        AssignNeighbour(leftNodeRow, leftNodeColumn, neighbors);
+        neighbors[counter] = AssignNeighbour(leftNodeRow, leftNodeColumn);
+        counter++;
+
+        return neighbors;
     }
 
     public TileObject GetNeighbour(TileObject node, Directions direction)
     {
-        Vector3 neighborPos = node.m_position;
+        Vector3 neighborPos = node.transform.position;
         int neighborIndex = GetGridIndex(neighborPos);
         int row = GetRow(neighborIndex);
         int column = GetColumn(neighborIndex);
@@ -248,42 +277,42 @@ public class GridManager : MonoBehaviour
             case Directions.Left:
                 leftNodeRow = row;
                 leftNodeColumn = column - 1;
-                AssignNeighbour(leftNodeRow, leftNodeColumn, auxNode);
+                auxNode = AssignNeighbour(leftNodeRow, leftNodeColumn);
                 break;
             case Directions.Right:
                 leftNodeRow = row;
                 leftNodeColumn = column + 1;
-                AssignNeighbour(leftNodeRow, leftNodeColumn, auxNode);
+                auxNode = AssignNeighbour(leftNodeRow, leftNodeColumn);
                 break;
             case Directions.Up:
-                leftNodeRow = row + 1;
+                leftNodeRow = row - 1;
                 leftNodeColumn = column;
-                AssignNeighbour(leftNodeRow, leftNodeColumn, auxNode);
+                auxNode = AssignNeighbour(leftNodeRow, leftNodeColumn);
                 break;
             case Directions.Down:
-                leftNodeRow = row - 1;
+                leftNodeRow = row + 1;
                 leftNodeColumn = column;
-                AssignNeighbour(leftNodeRow, leftNodeColumn, auxNode);
+                auxNode = AssignNeighbour(leftNodeRow, leftNodeColumn);
                 break;
             case Directions.LeftDown:
-                leftNodeRow = row - 1;
+                leftNodeRow = row + 1;
                 leftNodeColumn = column - 1;
-                AssignNeighbour(leftNodeRow, leftNodeColumn, auxNode);
+                auxNode = AssignNeighbour(leftNodeRow, leftNodeColumn);
                 break;
             case Directions.RightDown:
-                leftNodeRow = row - 1;
+                leftNodeRow = row + 1;
                 leftNodeColumn = column + 1;
-                AssignNeighbour(leftNodeRow, leftNodeColumn, auxNode);
+                auxNode = AssignNeighbour(leftNodeRow, leftNodeColumn);
                 break;
             case Directions.LeftUp:
-                leftNodeRow = row + 1;
+                leftNodeRow = row - 1;
                 leftNodeColumn = column - 1;
-                AssignNeighbour(leftNodeRow, leftNodeColumn, auxNode);
+                auxNode = AssignNeighbour(leftNodeRow, leftNodeColumn);
                 break;
             case Directions.RightUp:
-                leftNodeRow = row + 1;
+                leftNodeRow = row - 1;
                 leftNodeColumn = column + 1;
-                AssignNeighbour(leftNodeRow, leftNodeColumn, auxNode);
+                auxNode = AssignNeighbour(leftNodeRow, leftNodeColumn);
                 break;
             default:
                 break;
@@ -291,23 +320,26 @@ public class GridManager : MonoBehaviour
         return auxNode;
     }
 
-    void AssignNeighbour(int row, int column, TileObject[] neighbors)
-    {
-        int counter = 0;
-        if (row != -1 && column != -1 && row < numOfRows && column < numOfColumns)
-        {
-            TileObject nodeToAdd = nodes[row, column];
-            neighbors[counter] = nodeToAdd;
-            counter++;
-        }
-    }
+    //TileObject[] AssignNeighbourArray(int row, int column)
+    //{
+    //    TileObject[] neighbors = { };
+    //    if (row != -1 && column != -1 && row < numOfRows && column < numOfColumns)
+    //    {
+    //        TileObject nodeToAdd = nodes[column, row];
+    //        neighbors[counter] = nodeToAdd;
+    //        counter++;
+    //    }
+    //    return neighbors;
+    //}
 
-    void AssignNeighbour(int row, int column, TileObject neighbour)
+    TileObject AssignNeighbour(int row, int column)
     {
+        TileObject neighbour = null;
         if (row != -1 && column != -1 && row < numOfRows && column < numOfColumns)
         {
-            neighbour = nodes[row, column];
+            neighbour = nodes[column, row];
         }
+        return neighbour;
     }
 
     void OnDrawGizmos()
