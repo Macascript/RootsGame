@@ -21,9 +21,14 @@ public class Rock : TileObject
         if (GridManager.instance.player.getFoodEnergy())
         {
             GridManager.instance.player.useFoodEnergy();
+            GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect();
             Destroy(gameObject);
             return true;
         }
-        else return false;
+        else
+        {
+            GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
+            return false;
+        }
     }
 }

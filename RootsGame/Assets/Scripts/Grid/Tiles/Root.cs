@@ -20,6 +20,7 @@ public class Root : TileObject
 
     public override bool onStep()
     {
+        GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
         return false;
     }
 

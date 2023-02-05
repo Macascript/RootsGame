@@ -19,6 +19,7 @@ public class Food : TileObject
     public override bool onStep()
     {
         GridManager.instance.player.gainFoodEnergy();
+        GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect();
         return true;
     }
 }

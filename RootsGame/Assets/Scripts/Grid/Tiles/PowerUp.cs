@@ -18,6 +18,7 @@ public class PowerUp : TileObject
 
     public override bool onStep()
     {
+        GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect();
         return true;
     }
 }
