@@ -4,15 +4,15 @@ using UnityEngine;
 
 public enum Directions
 {
-    None,
-    Left,
-    Right,
-    Up,
-    Down,
-    LeftDown,
-    RightDown,
-    LeftUp,
-    RightUp
+    None = 0,
+    Right = 1,
+    RightUp = 2,
+    Up = 3,
+    LeftUp = 4,
+    Left = 5,
+    LeftDown = 6,
+    Down = 7,
+    RightDown = 8
 }
 
 public enum WaterType
