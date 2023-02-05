@@ -45,6 +45,8 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GameObject[] recorridos;
 
+    private int gusanitos = 0;
+
     public static GridManager instance
     {
         get
@@ -205,6 +207,8 @@ public class GridManager : MonoBehaviour
                         //node = new PowerUp(cellPos, sand[randomAux]);
                         Instantiate(sand[randomAux], cellPos, Quaternion.identity);
                         node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Bug>();
+                        node.gameObject.GetComponent<GusanoBehaviour>().pointsPrefab = recorridos[gusanitos];
+                        gusanitos++;
                         break;
                     case 'I':
                         //Instantiate(sand[randomAux], cellPos, Quaternion.identity);

@@ -37,7 +37,7 @@ public class GusanoBehaviour : MonoBehaviour
     private float WhichDirection(Vector3 nextPos)
     {
         Vector2 direction = (nextPos - transform.position).normalized;
-        float angle = Vector2.SignedAngle(Vector2.right, direction);
+        float angle = Vector2.SignedAngle(Vector2.right, direction)+180f;
         //if (angle >= -15f && angle <= 15f)
         //    return Directions.Right;
         //if (angle > 15f && angle <= 75f)
@@ -57,6 +57,11 @@ public class GusanoBehaviour : MonoBehaviour
         //return Directions.None;
 
         return angle;
+    }
+
+    private IEnumerator DOMove(Vector3 pos)
+    {
+        yield return null;
     }
 
     private void NextStep()
