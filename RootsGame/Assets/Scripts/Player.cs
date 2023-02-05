@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     [Range(0, 9)]
     private int waterEnergy;
 
-    private bool food = true;
+    private bool food = false;
 
     private TileObject actualNode = null;
 
