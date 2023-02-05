@@ -209,7 +209,7 @@ public class GridManager : MonoBehaviour
 
     public TileObject[] GetNeighbours(TileObject node)
     {
-        TileObject[] neighbors = { };
+        TileObject[] neighbors = new TileObject[8];
         Vector3 neighborPos = node.transform.position;
         int neighborIndex = GetGridIndex(neighborPos);
         int row = GetRow(neighborIndex);

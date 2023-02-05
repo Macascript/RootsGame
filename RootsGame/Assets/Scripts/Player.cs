@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         GridManager.instance.nodes[4, 0] = Instantiate(to_abajo, GridManager.instance.nodes[4, 0].transform.position, Quaternion.identity).GetComponent<Root>();
         //actualNode = new Root(GridManager.instance.nodes[4, 0].transform.position, to_abajo);
         actualNode = GridManager.instance.nodes[4, 0];
+        ((Root)actualNode).birthAnimation();
     }
 
     private void Update()
