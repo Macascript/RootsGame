@@ -98,12 +98,14 @@ public class Player : MonoBehaviour
     {
         if(waterEnergy == 0) return false;
 
-        TileObject[] neighbours = GridManager.instance.GetNeighbours(actualNode);
+        List<TileObject> neighbours = GridManager.instance.GetNeighbours(actualNode);
         bool can = false;
         int i = 0;
-        while(!can)
+        while(!can && i<neighbours.Count)
         {
-            can = neighbours[i].canStep();
+            if (neighbours[i] == null) can = false;
+            else can = neighbours[i].canStep();
+            ++i;
         }
         return can;
     }
