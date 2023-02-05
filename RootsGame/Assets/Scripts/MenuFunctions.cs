@@ -10,8 +10,8 @@ public class MenuFunctions : MonoBehaviour
         SceneManager.LoadSceneAsync("CarvasScene");
     }
 
-    public void Menu()
+    public void Quit()
     {
-        SceneManager.LoadSceneAsync("Menu");
+        Application.Quit();
     }
 }

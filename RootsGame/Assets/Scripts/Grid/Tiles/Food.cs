@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Unity.VisualScripting.Member;
 
 public class Food : TileObject
 {
@@ -10,6 +11,8 @@ public class Food : TileObject
     //    transform.position = pos;
     //    Instantiate(randomSand, this.transform.position, Quaternion.identity);
     //}
+    [SerializeField]
+    private AudioSource m_source;
 
     public override bool canStep()
     {
@@ -18,6 +21,7 @@ public class Food : TileObject
 
     public override bool onStep()
     {
+        m_source.Play();
         GridManager.instance.player.gainFoodEnergy();
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect();
         Destroy(gameObject);
