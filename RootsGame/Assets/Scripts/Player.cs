@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        this.transform.position = actualNode.transform.position;
+        
     }
 
     public int getWaterEnergy()
@@ -206,6 +206,7 @@ public class Player : MonoBehaviour
     {
         if (direction == Directions.None) return;
 
+        this.transform.position = actualNode.transform.position;
         actualNode.nextTileObject = GridManager.instance.GetNeighbour(actualNode, direction);
         goToNode(actualNode.nextTileObject, direction);
     }

@@ -9,6 +9,9 @@ public class ArbolNivel : MonoBehaviour
     private Sprite[] arboles;
 
     [SerializeField]
+    private Sprite sol;
+
+    [SerializeField]
     private AudioSource m_source;
 
     private int index = 0;
@@ -36,6 +39,8 @@ public class ArbolNivel : MonoBehaviour
     private IEnumerator changeLevel()
     {
         //sol con animacion
+        GetComponent<Image>().sprite = sol;
+        //TODO ANIMACION SOL
         yield return new WaitForSeconds(5);
         GetComponent<Image>().sprite = arboles[index];
         Destroy(GridManager.instance.brote);

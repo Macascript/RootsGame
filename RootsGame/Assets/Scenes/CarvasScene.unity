@@ -1014,8 +1014,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: f7cc7f8ecd039704fbb2573cac0735db, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2421,6 +2421,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9069c93daa8654d419bc3a2d7d66a994, type: 3}
   - {fileID: 21300000, guid: ac50895d2fbb80f4cafd39b62fd83502, type: 3}
   - {fileID: 21300000, guid: b3cae330c8929634484f9e39ee7a5363, type: 3}
+  sol: {fileID: 21300000, guid: aec36e820ad5bcf46b5c007c2346f63e, type: 3}
   m_source: {fileID: 1983245528}
 --- !u!82 &1983245528
 AudioSource:
