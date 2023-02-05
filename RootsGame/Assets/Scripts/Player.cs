@@ -52,11 +52,6 @@ public class Player : MonoBehaviour
         ((Root)actualNode).birthAnimation();
     }
 
-    private void Update()
-    {
-        
-    }
-
     public int getWaterEnergy()
     {
         return waterEnergy;
