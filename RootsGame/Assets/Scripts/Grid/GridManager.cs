@@ -189,12 +189,12 @@ public class GridManager : MonoBehaviour
                     case 'G':
                         //node = new Food(cellPos, sand[randomAux]);
                         Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        //node = Instantiate(food, cellPos, Quaternion.identity).GetComponent<Food>();
+                        node = Instantiate(food, cellPos, Quaternion.identity).GetComponent<Food>();
                         break;
                     case 'H':
                         //node = new PowerUp(cellPos, sand[randomAux]);
                         Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        //node = Instantiate(powerUp, cellPos, Quaternion.identity).GetComponent<PowerUp>();
+                        node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Bug>();
                         break;
                     default:
                         break;

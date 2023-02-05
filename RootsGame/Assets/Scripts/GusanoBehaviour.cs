@@ -105,6 +105,7 @@ public class GusanoBehaviour : MonoBehaviour
         //        break;
         //}
         pointsIndex += (1 * sentido) % points.Length;
+        steps++;
         // Decirle al código de jaime que ya no estoy aquí, que estoy allí
     }
 }

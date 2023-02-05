@@ -307,8 +307,8 @@ MonoBehaviour:
   - {fileID: 2332929796021840856, guid: ed1993d2850561441ad2a8e062b24666, type: 3}
   - {fileID: 1342989988275931464, guid: a05ff2be7649b7c4a80f496f7305dff3, type: 3}
   - {fileID: 7248623810863967172, guid: a4111ddeb3645a042ac0458ff6ef063e, type: 3}
-  bug: {fileID: 0}
-  food: {fileID: 0}
+  bug: {fileID: 3401615536643005072, guid: 0b9dfa62337ecee4c8b03b008c532a4d, type: 3}
+  food: {fileID: 5452884620184280549, guid: c8b35ab87b8c70e4285777b5477793e9, type: 3}
   powerUp: {fileID: 0}
   paredDer:
   - {fileID: 5326261558743016094, guid: 868cb44291cb2df44bf9ef3e71425c35, type: 3}
@@ -410,12 +410,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1bc5830f322dd4b8770070c59a6687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wrongAmplitude: 0
-  wrongFrequency: 0
-  wrongTime: 0
-  correctAmplitude: 0
-  correctFrequency: 0
-  correctTime: 0
+  wrongAmplitude: 0.6
+  wrongFrequency: 0.4
+  wrongTime: 0.5
+  correctAmplitude: 0.2
+  correctFrequency: 0.3
+  correctTime: 0.2
+  gestures: {fileID: 1908601389}
 --- !u!1 &510945140
 GameObject:
   m_ObjectHideFlags: 3
