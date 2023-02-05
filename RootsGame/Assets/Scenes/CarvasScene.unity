@@ -317,6 +317,7 @@ MonoBehaviour:
   - {fileID: 209904221832158269, guid: 7be91c93634df64469fb6c1dc883647f, type: 3}
   - {fileID: 1809767966420830826, guid: cfbee394859f71c41af64c4ea0009518, type: 3}
   negro: {fileID: 4227315818045738599, guid: c8890d8b08d4ac0428233749b3009bfb, type: 3}
+  virtualCamera: {fileID: 501867022}
   showGrid: 1
   player: {fileID: 1908601388}
 --- !u!1 &501867022
@@ -329,6 +330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 501867024}
   - component: {fileID: 501867023}
+  - component: {fileID: 501867025}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -390,6 +392,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &501867025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501867022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1bc5830f322dd4b8770070c59a6687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &510945140
 GameObject:
   m_ObjectHideFlags: 3
@@ -401,6 +415,7 @@ GameObject:
   - component: {fileID: 510945141}
   - component: {fileID: 510945143}
   - component: {fileID: 510945142}
+  - component: {fileID: 510945144}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -478,6 +493,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &510945144
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510945140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 3
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &520919202
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,10 +948,10 @@ MonoBehaviour:
   waterEnergy: 3
   to_abajo: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
   to_arriba: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
-  to_izquierda: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_izquierda: {fileID: 7372719193855342382, guid: 0c1a4696dc37fd5408419d03be352c55, type: 3}
   to_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
   to_abajo_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
-  to_abajo_izquierda: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_abajo_izquierda: {fileID: 8157752587974200791, guid: 934e9eac25e57e54781575b0d389edf5, type: 3}
   to_arriba_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
   to_arriba_izquierda: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
 --- !u!114 &1908601389

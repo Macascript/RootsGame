@@ -18,6 +18,7 @@ public class Bug : TileObject
     public override bool onStep()
     {
         GridManager.instance.player.useWaterEnergy(9);
+        GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
         return false;
     }
 }

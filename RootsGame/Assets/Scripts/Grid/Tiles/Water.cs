@@ -25,6 +25,7 @@ public class Water : TileObject
     {
         GridManager.instance.player.gainWaterEnergy(type);
         GetComponent<SpriteRenderer>().sprite = drinked;
+        GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect();
         return true;
     }
 }
