@@ -103,7 +103,7 @@ public class GridManager : MonoBehaviour
 
         numOfRows = lines.Count + lines2.Count + lines3.Count + lines4.Count;
         numOfColumns = lines[0].Length;
-        if (lines[0][lines[0].Length - 1] == '\0') numOfColumns--;
+        //if (lines[0][lines[0].Length - 1] == '\0') numOfColumns--;
 
         nodes = new TileObject[numOfColumns, numOfRows];
 
