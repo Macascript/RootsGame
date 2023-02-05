@@ -28,6 +28,15 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GameObject powerUp;
 
+    [SerializeField]
+    private GameObject[] paredDer;
+
+    [SerializeField]
+    private GameObject[] paredIzq;
+
+    [SerializeField]
+    private GameObject negro;
+
     public static GridManager instance
     {
         get
@@ -110,6 +119,19 @@ public class GridManager : MonoBehaviour
                 if (lines[i][j] == '\0') continue;
 
                 cellPos = GetGridCellCenter(index);
+
+                if (j == 0)
+                {
+                    Instantiate(negro, new Vector3(cellPos.x - 0.64f, cellPos.y, cellPos.z), Quaternion.identity);
+                    Instantiate(paredIzq[Random.Range(0, 2)], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                }
+                    
+                if(j == lines[i].Length - 1)
+                {
+                    Instantiate(negro, new Vector3(cellPos.x + 0.64f, cellPos.y, cellPos.z), Quaternion.identity);
+                    Instantiate(paredDer[Random.Range(0, 2)], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                }   
+                
                 //Debug.Log("j - " + line[j]);
                 randomAux = Random.Range(0, 3);
 

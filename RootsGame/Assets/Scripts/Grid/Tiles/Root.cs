@@ -34,6 +34,7 @@ public class Root : TileObject
     {
         if (animator == null)
             animator = GetComponent<Animator>();
+        animator.SetInteger("direction", (int)d);
         animator.SetTrigger("grow");
         ((Root)nextTileObject).birthAnimation();
     }
