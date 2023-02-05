@@ -38,5 +38,7 @@ public class ArbolNivel : MonoBehaviour
         //sol con animacion
         yield return new WaitForSeconds(5);
         GetComponent<Image>().sprite = arboles[index];
+        Destroy(GridManager.instance.brote);
+        GridManager.instance.brote = Instantiate(GridManager.instance.tallos[index], GridManager.instance.nodes[4, 0].transform.position + Vector3.up * 0.64f, Quaternion.identity);
     }
 }

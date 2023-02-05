@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        Instantiate(GridManager.instance.tallos[0], GridManager.instance.nodes[4, 0].transform.position + Vector3.up * 0.64f, Quaternion.identity);
+        GridManager.instance.brote = Instantiate(GridManager.instance.tallos[0], GridManager.instance.nodes[4, 0].transform.position + Vector3.up * 0.64f, Quaternion.identity);
         GridManager.instance.nodes[4, 0] = Instantiate(to_abajo, GridManager.instance.nodes[4, 0].transform.position, Quaternion.identity).GetComponent<Root>();
         //actualNode = new Root(GridManager.instance.nodes[4, 0].transform.position, to_abajo);
         actualNode = GridManager.instance.nodes[4, 0];
@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
                     break;
             }
             //GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.transform.position, auxObj);
-            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = Instantiate(auxObj, node.transform.position, Quaternion.identity).GetComponent<Root>();
+            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = Instantiate(auxObj, GridManager.instance.GetGridCellCenter(nodeIndex), Quaternion.identity).GetComponent<Root>();
             actualNode.nextTileObject = GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)];
             ((Root)actualNode).growAnimation(direction);
 
