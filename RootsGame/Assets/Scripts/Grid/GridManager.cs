@@ -48,6 +48,9 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     public GameObject[] tallos;
 
+    [SerializeField]
+    public GameObject[] finish;
+
     private int gusanitos = 0;
 
     public static GridManager instance
@@ -215,8 +218,43 @@ public class GridManager : MonoBehaviour
                         gusanitos++;
                         break;
                     case 'I':
-                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Finish>();
+                        node = Instantiate(finish[0], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'J':
+                        node = Instantiate(finish[1], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'K':
+                        node = Instantiate(finish[2], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'L':
+                        node = Instantiate(finish[3], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'M':
+                        node = Instantiate(finish[4], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'N':
+                        node = Instantiate(finish[5], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'O':
+                        node = Instantiate(finish[6], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'P':
+                        node = Instantiate(finish[7], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'Q':
+                        node = Instantiate(finish[8], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'R':
+                        node = Instantiate(finish[9], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'S':
+                        node = Instantiate(finish[10], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'T':
+                        node = Instantiate(finish[11], cellPos, Quaternion.identity).GetComponent<Finish>();
+                        break;
+                    case 'U':
+                        node = Instantiate(finish[12], cellPos, Quaternion.identity).GetComponent<Finish>();
                         break;
                     default:
                         break;
