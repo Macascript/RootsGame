@@ -328,10 +328,11 @@ MonoBehaviour:
   - {fileID: 3003306493235259843, guid: ce9145e0dc448504e87e3a14fa2d0a9e, type: 3}
   tallos:
   - {fileID: 3264812970968640567, guid: f1a1421838f97214dbea567109a45a37, type: 3}
-  - {fileID: 3264812970968640567, guid: f1a1421838f97214dbea567109a45a37, type: 3}
-  - {fileID: 3264812970968640567, guid: f1a1421838f97214dbea567109a45a37, type: 3}
+  - {fileID: 5589775547952518299, guid: 449abc12cf51093478b7f92c45ecf796, type: 3}
+  - {fileID: 8617248003884344497, guid: aef57bc428dab154a9d203f13378bfaa, type: 3}
   showGrid: 1
   player: {fileID: 1908601388}
+  brote: {fileID: 0}
 --- !u!1 &501867022
 GameObject:
   m_ObjectHideFlags: 0

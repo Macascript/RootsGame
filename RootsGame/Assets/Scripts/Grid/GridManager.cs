@@ -76,6 +76,7 @@ public class GridManager : MonoBehaviour
     public Player player;
     private int index = 0;
     private int lineCounter = 0;
+    public GameObject brote;
 
     public Vector3 Origin
     {
