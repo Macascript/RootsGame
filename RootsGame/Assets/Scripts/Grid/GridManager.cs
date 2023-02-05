@@ -38,6 +38,12 @@ public class GridManager : MonoBehaviour
     private GameObject negro;
 
     [SerializeField]
+    private GameObject[] pradoSup;
+
+    [SerializeField]
+    private GameObject[] pradoInf;
+
+    [SerializeField]
     public GameObject virtualCamera;
 
     public static GridManager instance
@@ -134,6 +140,11 @@ public class GridManager : MonoBehaviour
                     Instantiate(negro, new Vector3(cellPos.x + 0.64f, cellPos.y, cellPos.z), Quaternion.identity);
                     Instantiate(paredDer[Random.Range(0, 2)], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
                 }   
+
+                if(lineCounter == 0)
+                {
+                    Instantiate(pradoInf[j%2], cellPos, Quaternion.identity);
+                }
                 
                 //Debug.Log("j - " + line[j]);
                 randomAux = Random.Range(0, 3);
