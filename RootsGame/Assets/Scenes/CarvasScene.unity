@@ -317,6 +317,12 @@ MonoBehaviour:
   - {fileID: 209904221832158269, guid: 7be91c93634df64469fb6c1dc883647f, type: 3}
   - {fileID: 1809767966420830826, guid: cfbee394859f71c41af64c4ea0009518, type: 3}
   negro: {fileID: 4227315818045738599, guid: c8890d8b08d4ac0428233749b3009bfb, type: 3}
+  pradoSup:
+  - {fileID: 3451928656888798376, guid: 6987c897c44c40747ab9810964497a5b, type: 3}
+  - {fileID: 5046666292973490842, guid: b67e005137023c142aeabdfe96f2599d, type: 3}
+  pradoInf:
+  - {fileID: 6447814192157936415, guid: 1069334dc78c861408e0b4e582d1f384, type: 3}
+  - {fileID: 6169204816262037814, guid: 08ab5107db991254b857d76af242f34f, type: 3}
   virtualCamera: {fileID: 501867022}
   showGrid: 1
   player: {fileID: 1908601388}
@@ -404,6 +410,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1bc5830f322dd4b8770070c59a6687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wrongAmplitude: 0
+  wrongFrequency: 0
+  wrongTime: 0
+  correctAmplitude: 0
+  correctFrequency: 0
+  correctTime: 0
 --- !u!1 &510945140
 GameObject:
   m_ObjectHideFlags: 3
@@ -508,7 +520,7 @@ MonoBehaviour:
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
   m_AmplitudeGain: 0
-  m_FrequencyGain: 3
+  m_FrequencyGain: 0
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &520919202
 GameObject:
@@ -949,8 +961,8 @@ MonoBehaviour:
   to_abajo: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
   to_arriba: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
   to_izquierda: {fileID: 7372719193855342382, guid: 0c1a4696dc37fd5408419d03be352c55, type: 3}
-  to_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
-  to_abajo_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
+  to_derecha: {fileID: 522165968465071015, guid: 71d09dbc302e74c45b588e415cd404de, type: 3}
+  to_abajo_derecha: {fileID: 79576521273933689, guid: 24894842481bbf4458d54f1ee6dbc618, type: 3}
   to_abajo_izquierda: {fileID: 8157752587974200791, guid: 934e9eac25e57e54781575b0d389edf5, type: 3}
   to_arriba_derecha: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
   to_arriba_izquierda: {fileID: 1198803617629829536, guid: b9d3fc04578e19c48980be594f7ccc02, type: 3}
