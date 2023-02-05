@@ -64,6 +64,7 @@ public class GusanoBehaviour : MonoBehaviour
         if (steps > 0 && steps < tam-1)
         {
             GusanoBehaviour b = Instantiate(body, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
+            b.pointsPrefab = pointsPrefab;
             b.BeginBehaviour();
         }else if (steps == tam - 1)
         {
@@ -73,6 +74,7 @@ public class GusanoBehaviour : MonoBehaviour
         TileObject o = GridManager.instance.nodes[GridManager.instance.GetColumn(i), GridManager.instance.GetRow(i)];
         if (o is Root)
         {
+            Debug.Log("OSTIA RAMA");
             pointsIndex += (2 * sentido) % pointsPrefab.transform.childCount;
         }
         transform.DOMove(pointsPrefab.transform.GetChild(pointsIndex).position, Duration(pointsPrefab.transform.GetChild(pointsIndex).position)).SetEase(Ease.Linear).OnComplete(NextStep);
@@ -108,7 +110,8 @@ public class GusanoBehaviour : MonoBehaviour
         //        break;
         //}
         pointsIndex += (1 * sentido) % pointsPrefab.transform.childCount;
+        Debug.Log("Hemos llegao al punto, siguiente: " + pointsIndex);
         steps++;
-        // Decirle al código de jaime que ya no estoy aquí, que estoy allí
+        // TODO: Decirle al código de jaime que ya no estoy aquí, que estoy allí
     }
 }
