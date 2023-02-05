@@ -75,7 +75,11 @@ public class Player : MonoBehaviour
     {
         if(water < 0) water = 0;
         waterEnergy = waterEnergy - water;
-        if(waterEnergy < 0) waterEnergy = 0;
+        if (waterEnergy <= 0)
+        {
+            waterEnergy = 0;
+            gameOver();
+        }
     }
 
     public void gainWaterEnergy(WaterType water)
