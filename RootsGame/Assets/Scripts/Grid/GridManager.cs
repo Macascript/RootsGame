@@ -16,9 +16,6 @@ public class GridManager : MonoBehaviour
     private GameObject[] water;
 
     [SerializeField]
-    private GameObject[] water_sin;
-
-    [SerializeField]
     private GameObject bug;
 
     [SerializeField]
@@ -208,6 +205,10 @@ public class GridManager : MonoBehaviour
                         //node = new PowerUp(cellPos, sand[randomAux]);
                         Instantiate(sand[randomAux], cellPos, Quaternion.identity);
                         node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Bug>();
+                        break;
+                    case 'I':
+                        //Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        //node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Finish>();
                         break;
                     default:
                         break;

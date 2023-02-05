@@ -303,10 +303,6 @@ MonoBehaviour:
   - {fileID: 3252634890747192767, guid: 2f3585dc2c46fce4ab10fff1bb7fd26b, type: 3}
   - {fileID: 7348447121807915947, guid: a06854445610004429a01668a81764b8, type: 3}
   - {fileID: 4294498606490209042, guid: e4fd9524873cd984a98d32a01c848f7f, type: 3}
-  water_sin:
-  - {fileID: 2332929796021840856, guid: ed1993d2850561441ad2a8e062b24666, type: 3}
-  - {fileID: 1342989988275931464, guid: a05ff2be7649b7c4a80f496f7305dff3, type: 3}
-  - {fileID: 7248623810863967172, guid: a4111ddeb3645a042ac0458ff6ef063e, type: 3}
   bug: {fileID: 3401615536643005072, guid: 0b9dfa62337ecee4c8b03b008c532a4d, type: 3}
   food: {fileID: 5452884620184280549, guid: c8b35ab87b8c70e4285777b5477793e9, type: 3}
   powerUp: {fileID: 0}
