@@ -317,7 +317,9 @@ MonoBehaviour:
   - {fileID: 209904221832158269, guid: 7be91c93634df64469fb6c1dc883647f, type: 3}
   - {fileID: 1809767966420830826, guid: cfbee394859f71c41af64c4ea0009518, type: 3}
   negro: {fileID: 4227315818045738599, guid: c8890d8b08d4ac0428233749b3009bfb, type: 3}
-  pradoSup: []
+  pradoSup:
+  - {fileID: 3451928656888798376, guid: 6987c897c44c40747ab9810964497a5b, type: 3}
+  - {fileID: 5046666292973490842, guid: b67e005137023c142aeabdfe96f2599d, type: 3}
   pradoInf:
   - {fileID: 6447814192157936415, guid: 1069334dc78c861408e0b4e582d1f384, type: 3}
   - {fileID: 6169204816262037814, guid: 08ab5107db991254b857d76af242f34f, type: 3}

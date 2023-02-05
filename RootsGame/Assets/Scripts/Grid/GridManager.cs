@@ -131,19 +131,24 @@ public class GridManager : MonoBehaviour
 
                 if (j == 0)
                 {
+                    int randomRocas = Random.Range(0, 2);
                     Instantiate(negro, new Vector3(cellPos.x - 0.64f, cellPos.y, cellPos.z), Quaternion.identity);
-                    Instantiate(paredIzq[Random.Range(0, 2)], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                    Instantiate(paredIzq[randomRocas], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                    Instantiate(paredDer[(randomRocas+1)%2], new Vector3(cellPos.x - 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
                 }
                     
                 if(j == lines[i].Length - 1)
                 {
+                    int randomRocas = Random.Range(0, 2);
                     Instantiate(negro, new Vector3(cellPos.x + 0.64f, cellPos.y, cellPos.z), Quaternion.identity);
-                    Instantiate(paredDer[Random.Range(0, 2)], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                    Instantiate(paredDer[randomRocas], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                    Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x + 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
                 }   
 
                 if(lineCounter == 0)
                 {
                     Instantiate(pradoInf[j%2], cellPos, Quaternion.identity);
+                    Instantiate(pradoSup[j%2], new Vector3(cellPos.x, cellPos.y + 0.64f, cellPos.z), Quaternion.identity);
                 }
                 
                 //Debug.Log("j - " + line[j]);
