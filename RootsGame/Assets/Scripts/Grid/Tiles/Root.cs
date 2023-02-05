@@ -30,7 +30,7 @@ public class Root : TileObject
         animator.SetTrigger("birth");
     }
 
-    public void growAnimation()
+    public void growAnimation(Directions d)
     {
         if (animator == null)
             animator = GetComponent<Animator>();

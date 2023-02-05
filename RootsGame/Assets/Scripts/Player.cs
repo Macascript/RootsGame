@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [Range(0, 9)]
     private int waterEnergy;
 
+    private bool food = false;
+
     private TileObject actualNode;
 
     [SerializeField]
@@ -43,6 +45,20 @@ public class Player : MonoBehaviour
     public int getWaterEnergy()
     {
         return waterEnergy;
+    }
+    public bool getFoodEnergy()
+    {
+        return food;
+    }
+
+    public void gainFoodEnergy()
+    {
+        food = true;
+    }
+
+    public void useFoodEnergy()
+    {
+        food = false;
     }
 
     public void useWaterEnergy(int water = 1)
@@ -124,14 +140,13 @@ public class Player : MonoBehaviour
             }
             GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.m_position, auxObj);
             actualNode.nextTileObject = GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)];
-            ((Root)actualNode).growAnimation();
+            ((Root)actualNode).growAnimation(direction);
 
             useWaterEnergy();
             actualNode = actualNode.nextTileObject;
 
             if (!canMove()) gameOver();
         }
-        // else actualNode backwards animation
     }
 
     void gameOver()
@@ -146,4 +161,11 @@ public class Player : MonoBehaviour
         actualNode.nextTileObject = GridManager.instance.GetNeighbour(actualNode, direction);
         goToNode(actualNode.nextTileObject, direction);
     }
+
+    public void nextRightNode() => nextNode(Directions.Right);
+    public void nextRightDownNode() => nextNode(Directions.RightDown);
+    public void nextDownNode() => nextNode(Directions.Down);
+    public void nextLeftDownNode() => nextNode(Directions.LeftDown);
+    public void nextLeftNode() => nextNode(Directions.Left);
+
 }

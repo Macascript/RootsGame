@@ -16,6 +16,9 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GameObject[] water;
 
+    [SerializeField]
+    private GameObject[] water_sin;
+
     public static GridManager instance
     {
         get
@@ -40,6 +43,8 @@ public class GridManager : MonoBehaviour
     private Vector3 origin = new Vector3();
     public TileObject[,] nodes { get; set; }
     public Player player;
+    private int index = 0;
+    private int lineCounter = 0;
 
     public Vector3 Origin
     {
@@ -62,33 +67,44 @@ public class GridManager : MonoBehaviour
         List<string> lines = new List<string>(txt.text.Split('\n'));
 
         TextAsset txt2 = (TextAsset)Resources.Load("chunk2", typeof(TextAsset));
-        List<string> lines2 = new List<string>(txt.text.Split('\n'));
+        List<string> lines2 = new List<string>(txt2.text.Split('\n'));
 
         TextAsset txt3 = (TextAsset)Resources.Load("chunk3", typeof(TextAsset));
-        List<string> lines3 = new List<string>(txt.text.Split('\n'));
+        List<string> lines3 = new List<string>(txt3.text.Split('\n'));
 
-        numOfRows = lines.Count + lines2.Count + lines3.Count;
+        TextAsset txt4 = (TextAsset)Resources.Load("chunk4", typeof(TextAsset));
+        List<string> lines4 = new List<string>(txt4.text.Split('\n'));
+
+        numOfRows = lines.Count + lines2.Count + lines3.Count + lines4.Count;
         numOfColumns = lines[0].Length;
         if (lines[0][lines[0].Length - 1] == '\0') numOfColumns--;
 
         nodes = new TileObject[numOfColumns, numOfRows];
-        int index = 0;
+
+        loadLevel(lines);
+        loadLevel(lines2);
+        loadLevel(lines3);
+        loadLevel(lines4);
+    }
+
+    void loadLevel(List<string> lines)
+    {
         Vector3 cellPos = GetGridCellCenter(index);
         TileObject node = new TileObject(cellPos);
 
         int randomAux = 0;
-        for(int lineCounter = 0; lineCounter < lines.Count; lineCounter++)
+        for (int i = 0; i < lines.Count; i++)
         {
             //Debug.Log("lineCounter - " + lineCounter);
-            for (int j = 0; j < lines[lineCounter].Length; j++)
+            for (int j = 0; j < lines[i].Length; j++)
             {
-                if (lines[lineCounter][j] == '\0') continue;
+                if (lines[i][j] == '\0') continue;
 
                 cellPos = GetGridCellCenter(index);
                 //Debug.Log("j - " + line[j]);
                 randomAux = Random.Range(0, 3);
 
-                switch (lines[lineCounter][j])
+                switch (lines[i][j])
                 {
                     case 'A':
                         node = new Sand(cellPos, sand[randomAux]);
@@ -106,20 +122,21 @@ public class GridManager : MonoBehaviour
                         node = new Water(cellPos, WaterType.Max, sand[randomAux], water[2]);
                         break;
                     case 'F':
-                        node = new Bug(cellPos);
+                        node = new Bug(cellPos, sand[randomAux]);
                         break;
                     case 'G':
-                        node = new Food(cellPos);
+                        node = new Food(cellPos, sand[randomAux]);
                         break;
                     case 'H':
-                        node = new PowerUp(cellPos);
+                        node = new PowerUp(cellPos, sand[randomAux]);
                         break;
-                    default: 
+                    default:
                         break;
                 }
                 nodes[j, lineCounter] = node;
                 index++;
             }
+            lineCounter++;
         }
     }
 
