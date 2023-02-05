@@ -6,19 +6,22 @@ using DG.Tweening;
 public class GusanoBehaviour : MonoBehaviour
 {
     [SerializeField] private int tam = 3;
-    [SerializeField] private Transform[] points;
+    //[SerializeField] private Transform[] points;
     private int pointsIndex = 0;
     [SerializeField] private float speed = 1f;
     private int sentido = 1;
     //[SerializeField] private Animator anim;
     [SerializeField] private GameObject body, tail;
     private Vector3 initialPos;
+    public GameObject pointsPrefab;
 
     private int steps = 0;
 
     private void Start()
     {
         initialPos = transform.position;
+        //points = Instantiate(pointsPrefab, Vector3.zero, Quaternion.identity);
+        BeginBehaviour();
     }
 
     public void BeginBehaviour()
@@ -66,14 +69,14 @@ public class GusanoBehaviour : MonoBehaviour
         {
             GusanoBehaviour b = Instantiate(tail, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
         }
-        int i = GridManager.instance.GetGridIndex(points[pointsIndex].position);
+        int i = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
         TileObject o = GridManager.instance.nodes[GridManager.instance.GetColumn(i), GridManager.instance.GetRow(i)];
         if (o is Root)
         {
-            pointsIndex += (2 * sentido) % points.Length;
+            pointsIndex += (2 * sentido) % pointsPrefab.transform.childCount;
         }
-        transform.DOMove(points[pointsIndex].position, Duration(points[pointsIndex].position)).SetEase(Ease.Linear).OnComplete(NextStep);
-        transform.rotation = Quaternion.Euler(0, 0, WhichDirection(points[pointsIndex].position));
+        transform.DOMove(pointsPrefab.transform.GetChild(pointsIndex).position, Duration(pointsPrefab.transform.GetChild(pointsIndex).position)).SetEase(Ease.Linear).OnComplete(NextStep);
+        transform.rotation = Quaternion.Euler(0, 0, WhichDirection(pointsPrefab.transform.GetChild(pointsIndex).position));
         //switch (WhichDirection(points[pointsIndex].position))
         //{
         //    case Directions.Right:
@@ -104,7 +107,7 @@ public class GusanoBehaviour : MonoBehaviour
         //        anim.SetInteger("index", 0);
         //        break;
         //}
-        pointsIndex += (1 * sentido) % points.Length;
+        pointsIndex += (1 * sentido) % pointsPrefab.transform.childCount;
         steps++;
         // Decirle al código de jaime que ya no estoy aquí, que estoy allí
     }

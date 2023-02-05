@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tam: 3
-  points: []
   speed: 1
   body: {fileID: 288711193683780850, guid: 4547b8998fe06c94e82053fbef8197c0, type: 3}
   tail: {fileID: 1708199496347217582, guid: 1ace1f391a4d25b46af0628ae8e3352a, type: 3}
+  pointsPrefab: {fileID: 2288905650904047830, guid: 8754fdbe2a5473341930488f73bb7a16, type: 3}
