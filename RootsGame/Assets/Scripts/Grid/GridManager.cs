@@ -268,6 +268,7 @@ public class GridManager : MonoBehaviour
 
     public Vector3 GetGridCellCenter(int index)
     {
+        Debug.Log(index + " Esto es Maca");
         Vector3 cellPosition = GetGridCellPosition(index);
         cellPosition.x += (gridCellSize / 2.0f);
         cellPosition.y -= (gridCellSize / 2.0f);

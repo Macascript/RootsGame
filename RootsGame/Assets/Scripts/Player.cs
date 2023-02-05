@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject panelGameOver,panelWin;
 
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip gameOverAudio, winAudio;
+    [SerializeField] private AudioClip gameOverAudio, winAudio, finAudio;
 
     void Start()
     {
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
             Debug.Log("null");
             return;
         }
-        else if (node.onStep())
+        else if (!GusanoBehaviour.listaIndices.ContainsValue(GridManager.instance.GetGridIndex(node.transform.position)) && node.onStep())
         {
             int nodeIndex = GridManager.instance.GetGridIndex(node.transform.position);
             GameObject auxObj = to_abajo;
@@ -186,9 +186,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(2f);
         while(Vector2.Distance(transform.position,finalPosGameOver.position) > 1f)
         {
+            Debug.Log(Vector2.Distance(transform.position, finalPosGameOver.position));
             transform.position += direction * gameOverSpeed * Time.deltaTime;
             yield return null;
         }
+        audioSource.PlayOneShot(finAudio);
         yield return new WaitForSeconds(3f);
         panel.SetActive(true);
     }
