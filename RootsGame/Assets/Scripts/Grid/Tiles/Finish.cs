@@ -11,8 +11,8 @@ public class Finish : TileObject
 
     public override bool onStep()
     {
-        //TO DO: WIN
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect();
+        GridManager.instance.player.Win();
         return true;
     }
 }

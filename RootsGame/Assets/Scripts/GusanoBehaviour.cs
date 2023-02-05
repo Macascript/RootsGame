@@ -15,6 +15,9 @@ public class GusanoBehaviour : MonoBehaviour
     private Vector3 initialPos;
     public GameObject pointsPrefab;
 
+    //private GameObject actualBody, actualTail;
+    //private TileObject actualHead;
+
     private int steps = 0;
 
     private void Start()
@@ -68,11 +71,13 @@ public class GusanoBehaviour : MonoBehaviour
     {
         if (steps > 0 && steps < tam-1)
         {
+            //actualBody = Instantiate(body, initialPos, Quaternion.identity);
             GusanoBehaviour b = Instantiate(body, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
             b.pointsPrefab = pointsPrefab;
             //b.BeginBehaviour();
         }else if (steps == tam - 1)
         {
+            //actualTail = Instantiate(tail, initialPos, Quaternion.identity);
             GusanoBehaviour b = Instantiate(tail, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
             b.pointsPrefab = pointsPrefab;
         }
@@ -116,9 +121,20 @@ public class GusanoBehaviour : MonoBehaviour
         //        anim.SetInteger("index", 0);
         //        break;
         //}
+        int thisIndex = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
+        //actualHead = GridManager.instance.nodes[GridManager.instance.GetColumn(thisIndex), GridManager.instance.GetRow(thisIndex)].GetComponent<Bug>();
+        //int bodyIndex = GridManager.instance.GetGridIndex(actualBody.transform.position);
+        //int tailIndex = GridManager.instance.GetGridIndex(actualTail.transform.position);
+
         pointsIndex = (pointsIndex + sentido) % pointsPrefab.transform.childCount;
         Debug.Log("Hemos llegao al punto, siguiente: " + pointsIndex+" y somos "+name);
         steps++;
-        // TODO: Decirle al código de jaime que ya no estoy aquí, que estoy allí
+        // TODO: Decirle al código de jaime que ya no estoy aquí, que estoy allí 
+        //GridManager.instance.nodes[GridManager.instance.GetColumn(bodyIndex), GridManager.instance.GetRow(bodyIndex)] = actualTail.GetComponent<Bug>();
+        //GridManager.instance.nodes[GridManager.instance.GetColumn(headIndex), GridManager.instance.GetRow(headIndex)] = actualBody.GetComponent<Bug>();
+        int futureIndex = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
+        //GridManager.instance.nodes[GridManager.instance.GetColumn(bodyIndex), GridManager.instance.GetRow(tailIndex)] = GridManager.instance.nodes[GridManager.instance.GetColumn(newHeadIndex), GridManager.instance.GetRow(newHeadIndex)];
+        GridManager.instance.nodes[GridManager.instance.GetColumn(thisIndex), GridManager.instance.GetRow(thisIndex)] = Instantiate(GridManager.instance.sand[Random.Range(0,3)], GridManager.instance.nodes[GridManager.instance.GetColumn(thisIndex), GridManager.instance.GetRow(thisIndex)].transform.position, Quaternion.identity).GetComponent<Sand>();
+        GridManager.instance.nodes[GridManager.instance.GetColumn(futureIndex), GridManager.instance.GetRow(futureIndex)] = this.gameObject.GetComponent<Bug>();
     }
 }

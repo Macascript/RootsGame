@@ -7,7 +7,7 @@ public class GridManager : MonoBehaviour
     private static GridManager s_Instance = null;
 
     [SerializeField]
-    private GameObject[] sand;
+    public GameObject[] sand;
 
     [SerializeField]
     private GameObject rock;
@@ -214,8 +214,8 @@ public class GridManager : MonoBehaviour
                         gusanitos++;
                         break;
                     case 'I':
-                        //Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        //node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Finish>();
+                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                        node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Finish>();
                         break;
                     default:
                         break;
@@ -294,17 +294,17 @@ public class GridManager : MonoBehaviour
         //Top
         leftNodeRow = row + 1;
         leftNodeColumn = column;
-        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Top Right
         leftNodeRow = row + 1;
         leftNodeColumn = column + 1;
-        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Top Left
         leftNodeRow = row + 1;
         leftNodeColumn = column - 1;
-        neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Right
         leftNodeRow = row;
