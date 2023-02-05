@@ -1960,6 +1960,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9069c93daa8654d419bc3a2d7d66a994, type: 3}
   - {fileID: 21300000, guid: ac50895d2fbb80f4cafd39b62fd83502, type: 3}
   - {fileID: 21300000, guid: b3cae330c8929634484f9e39ee7a5363, type: 3}
+  m_source: {fileID: 1983245528}
 --- !u!82 &1983245528
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1970,7 +1971,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d4e08aa98815d2a49b29901950144065, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
