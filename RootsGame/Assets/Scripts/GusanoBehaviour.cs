@@ -76,7 +76,7 @@ public class GusanoBehaviour : MonoBehaviour
         {
             Debug.Log("OSTIA RAMA");
             sentido *= -1;
-            pointsIndex += (2 * sentido) % pointsPrefab.transform.childCount;
+            pointsIndex = (pointsIndex + 2 * sentido) % pointsPrefab.transform.childCount;
         }
         transform.DOMove(pointsPrefab.transform.GetChild(pointsIndex).position, Duration(pointsPrefab.transform.GetChild(pointsIndex).position)).SetEase(Ease.Linear).OnComplete(NextStep);
         transform.rotation = Quaternion.Euler(0, 0, WhichDirection(pointsPrefab.transform.GetChild(pointsIndex).position));
@@ -110,7 +110,7 @@ public class GusanoBehaviour : MonoBehaviour
         //        anim.SetInteger("index", 0);
         //        break;
         //}
-        pointsIndex += (sentido) % pointsPrefab.transform.childCount;
+        pointsIndex = (pointsIndex + sentido) % pointsPrefab.transform.childCount;
         Debug.Log("Hemos llegao al punto, siguiente: " + pointsIndex+" y somos "+name);
         steps++;
         // TODO: Decirle al código de jaime que ya no estoy aquí, que estoy allí
