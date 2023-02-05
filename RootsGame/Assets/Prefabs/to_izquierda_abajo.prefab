@@ -122,3 +122,7 @@ MonoBehaviour:
   nextTileObject: {fileID: 0}
   animator: {fileID: 0}
   dust: {fileID: 2028585435747362338, guid: 1903a412933bfb0428331ee7cc8e28ac, type: 3}
+  piquitoLeftDownArriba: {fileID: 1174079631929464305, guid: 37cdc8c516f892849b84c9ea934943c4, type: 3}
+  piquitoLeftDownAbajo: {fileID: 7938497935799242466, guid: 4054ac1eae5230043a5853d49d7d7e9a, type: 3}
+  piquitoRightDownArriba: {fileID: 5550469346144948751, guid: 99a2b8102a998f34abcd70927d2d0e4c, type: 3}
+  piquitoRightDownAbajo: {fileID: 8776910246483177960, guid: 83ea3e93bd4308148a46364e343e3c8e, type: 3}
