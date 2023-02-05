@@ -159,7 +159,7 @@ public class Player : MonoBehaviour
                     break;
             }
             //GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = new Root(node.transform.position, auxObj);
-            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = Instantiate(auxObj, node.transform.position, Quaternion.identity).GetComponent<Root>();
+            GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)] = Instantiate(auxObj, GridManager.instance.GetGridCellCenter(nodeIndex), Quaternion.identity).GetComponent<Root>();
             actualNode.nextTileObject = GridManager.instance.nodes[GridManager.instance.GetColumn(nodeIndex), GridManager.instance.GetRow(nodeIndex)];
             ((Root)actualNode).growAnimation(direction);
 
