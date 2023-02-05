@@ -9,9 +9,6 @@ public class ArbolNivel : MonoBehaviour
     private Sprite[] arboles;
 
     [SerializeField]
-    private Sprite sol;
-
-    [SerializeField]
     private GameObject solAnim;
 
     [SerializeField]
@@ -44,9 +41,9 @@ public class ArbolNivel : MonoBehaviour
         //sol sin animacion
         //GetComponent<Image>().sprite = sol;
         //ANIMACION SOL
-        GameObject solAux = Instantiate(solAnim, this.transform.position, Quaternion.identity);
+        solAnim.SetActive(true);
         yield return new WaitForSeconds(5);
-        Destroy(solAux);
+        solAnim.SetActive(false);
         GetComponent<Image>().sprite = arboles[index];
         Destroy(GridManager.instance.brote);
         GridManager.instance.brote = Instantiate(GridManager.instance.tallos[index], GridManager.instance.nodes[4, 0].transform.position + Vector3.up * 0.64f, Quaternion.identity);
