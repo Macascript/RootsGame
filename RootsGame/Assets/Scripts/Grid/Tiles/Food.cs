@@ -20,6 +20,7 @@ public class Food : TileObject
     {
         GridManager.instance.player.gainFoodEnergy();
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraCorrect();
+        Destroy(gameObject);
         return true;
     }
 }
