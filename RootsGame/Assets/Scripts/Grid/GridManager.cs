@@ -45,6 +45,9 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     private GameObject[] recorridos;
 
+    [SerializeField]
+    public GameObject[] tallos;
+
     private int gusanitos = 0;
 
     public static GridManager instance
