@@ -27,6 +27,8 @@ public class ShakeCamera : MonoBehaviour
     private float shakeTimerTotal = 0;
     private float startingAmplitude = 0;
 
+    [SerializeField] private GestureDetector gestures;
+
     public void ShakeCameraCorrect()
     {
         CinemachineBasicMultiChannelPerlin perlin = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -34,9 +36,11 @@ public class ShakeCamera : MonoBehaviour
 
         perlin.m_AmplitudeGain = correctAmplitude;
 
-        startingAmplitude = correctAmplitude;
-        shakeTimer = correctTime;
-        shakeTimerTotal = correctTime;
+        //startingAmplitude = correctAmplitude;
+        //shakeTimer = correctTime;
+        //shakeTimerTotal = correctTime;
+        gestures.enabled = false;
+        Invoke("StopShaking", correctTime);
     }
 
     public void ShakeCameraWrong()
@@ -46,19 +50,29 @@ public class ShakeCamera : MonoBehaviour
 
         perlin.m_AmplitudeGain = wrongAmplitude;
 
-        startingAmplitude = wrongAmplitude;
-        shakeTimer = wrongTime;
-        shakeTimerTotal = wrongTime;
+        //startingAmplitude = wrongAmplitude;
+        //shakeTimer = wrongTime;
+        //shakeTimerTotal = wrongTime;
+        gestures.enabled = false;
+        Invoke("StopShaking", wrongTime);
     }
 
-    private void Update()
+    private void StopShaking()
     {
-        shakeTimer -= Time.deltaTime;
-        if(shakeTimer <= 0f)
-        {
-            CinemachineBasicMultiChannelPerlin perlin = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-
-            perlin.m_AmplitudeGain = Mathf.Lerp(startingAmplitude, 0f, shakeTimer / shakeTimerTotal);
-        }
+        CinemachineBasicMultiChannelPerlin perlin = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+        perlin.m_AmplitudeGain = 0f;
+        perlin.m_FrequencyGain = 0f;
+        gestures.enabled = true;
     }
+
+    //private void Update()
+    //{
+    //    shakeTimer -= Time.deltaTime;
+    //    if(shakeTimer <= 0f)
+    //    {
+    //        CinemachineBasicMultiChannelPerlin perlin = GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
+    //        perlin.m_AmplitudeGain = Mathf.Lerp(startingAmplitude, 0f, shakeTimer / shakeTimerTotal);
+    //    }
+    //}
 }
