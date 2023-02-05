@@ -45,6 +45,9 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     public GameObject virtualCamera;
 
+    [SerializeField]
+    private GameObject recorrido1;
+
     public static GridManager instance
     {
         get
