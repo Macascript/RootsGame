@@ -65,11 +65,6 @@ public class GusanoBehaviour : MonoBehaviour
         return angle;
     }
 
-    private IEnumerator DOMove(Vector3 pos)
-    {
-        yield return null;
-    }
-
     private void NextStep()
     {
         if (steps > 0 && steps < tam-1)
@@ -98,7 +93,7 @@ public class GusanoBehaviour : MonoBehaviour
             {
                 Debug.Log("OSTIA RAMA");
                 sentido *= -1;
-                pointsIndex = (pointsIndex + 2 * sentido) % pointsPrefab.transform.childCount;
+                //pointsIndex = (pointsIndex + 2 * sentido) % pointsPrefab.transform.childCount;
             }
             
         }
@@ -145,7 +140,7 @@ public class GusanoBehaviour : MonoBehaviour
         // TODO: Decirle al código de jaime que ya no estoy aquí, que estoy allí 
         //GridManager.instance.nodes[GridManager.instance.GetColumn(bodyIndex), GridManager.instance.GetRow(bodyIndex)] = actualTail.GetComponent<Bug>();
         //GridManager.instance.nodes[GridManager.instance.GetColumn(headIndex), GridManager.instance.GetRow(headIndex)] = actualBody.GetComponent<Bug>();
-        int futureIndex = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
+        //int futureIndex = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
         //GridManager.instance.nodes[GridManager.instance.GetColumn(bodyIndex), GridManager.instance.GetRow(tailIndex)] = GridManager.instance.nodes[GridManager.instance.GetColumn(newHeadIndex), GridManager.instance.GetRow(newHeadIndex)];
         //GridManager.instance.nodes[GridManager.instance.GetColumn(thisIndex), GridManager.instance.GetRow(thisIndex)] = Instantiate(GridManager.instance.sand[Random.Range(0,3)], GridManager.instance.nodes[GridManager.instance.GetColumn(thisIndex), GridManager.instance.GetRow(thisIndex)].transform.position, Quaternion.identity).GetComponent<Sand>();
         //GridManager.instance.nodes[GridManager.instance.GetColumn(futureIndex), GridManager.instance.GetRow(futureIndex)] = this.gameObject.GetComponent<Bug>();
