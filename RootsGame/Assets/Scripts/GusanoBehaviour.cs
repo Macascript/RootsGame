@@ -13,7 +13,7 @@ public class GusanoBehaviour : MonoBehaviour
     //[SerializeField] private Animator anim;
     [SerializeField] private GameObject body, tail;
     private Vector3 initialPos;
-    public GameObject pointsPrefab;
+    private List<Vector3> pointsPrefab;
 
     public static Dictionary<GusanoBehaviour,int> listaIndices = new Dictionary<GusanoBehaviour, int>();
 
@@ -22,10 +22,15 @@ public class GusanoBehaviour : MonoBehaviour
 
     private int steps = 0;
 
+    public void setPath(List<Vector3> newPath)
+    {
+        pointsPrefab = newPath;
+    }
+
     private void Start()
     {
         initialPos = transform.position;
-        listaIndices[this] = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
+        listaIndices[this] = GridManager.instance.GetGridIndex(pointsPrefab[pointsIndex]);
         //points = Instantiate(pointsPrefab, Vector3.zero, Quaternion.identity);
         BeginBehaviour();
     }
@@ -79,7 +84,7 @@ public class GusanoBehaviour : MonoBehaviour
             GusanoBehaviour b = Instantiate(tail, initialPos, Quaternion.identity).GetComponent<GusanoBehaviour>();
             b.pointsPrefab = pointsPrefab;
         }
-        int i = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
+        int i = GridManager.instance.GetGridIndex(pointsPrefab[pointsIndex]);
         TileObject o = GridManager.instance.nodes[GridManager.instance.GetColumn(i), GridManager.instance.GetRow(i)];
         if (o is Root)
         {
@@ -97,8 +102,8 @@ public class GusanoBehaviour : MonoBehaviour
             }
             
         }
-        transform.DOMove(pointsPrefab.transform.GetChild(pointsIndex).position, Duration(pointsPrefab.transform.GetChild(pointsIndex).position)).SetEase(Ease.Linear).OnComplete(NextStep);
-        transform.rotation = Quaternion.Euler(0, 0, WhichDirection(pointsPrefab.transform.GetChild(pointsIndex).position));
+        transform.DOMove(pointsPrefab[pointsIndex], Duration(pointsPrefab[pointsIndex])).SetEase(Ease.Linear).OnComplete(NextStep);
+        transform.rotation = Quaternion.Euler(0, 0, WhichDirection(pointsPrefab[pointsIndex]));
         //switch (WhichDirection(points[pointsIndex].position))
         //{
         //    case Directions.Right:
@@ -129,12 +134,12 @@ public class GusanoBehaviour : MonoBehaviour
         //        anim.SetInteger("index", 0);
         //        break;
         //}
-        listaIndices[this] = GridManager.instance.GetGridIndex(pointsPrefab.transform.GetChild(pointsIndex).position);
+        listaIndices[this] = GridManager.instance.GetGridIndex(pointsPrefab[pointsIndex]);
         //actualHead = GridManager.instance.nodes[GridManager.instance.GetColumn(thisIndex), GridManager.instance.GetRow(thisIndex)].GetComponent<Bug>();
         //int bodyIndex = GridManager.instance.GetGridIndex(actualBody.transform.position);
         //int tailIndex = GridManager.instance.GetGridIndex(actualTail.transform.position);
 
-        pointsIndex = (pointsIndex + sentido) % pointsPrefab.transform.childCount;
+        pointsIndex = (pointsIndex + sentido) % pointsPrefab.Count;
         //Debug.Log("Hemos llegao al punto, siguiente: " + pointsIndex+" y somos "+name);
         steps++;
         // TODO: Decirle al código de jaime que ya no estoy aquí, que estoy allí 
