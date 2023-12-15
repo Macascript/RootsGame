@@ -96,39 +96,42 @@ public class GridManager : MonoBehaviour
         CalculateTiles();
     }
 
-    private void Update(){}
+    private void Update() { }
 
     void CalculateTiles()
     {
-        TextAsset txt = (TextAsset)Resources.Load("chunk", typeof(TextAsset));
-        List<string> lines = new List<string>(txt.text.Split('\n'));
+        Object[] chunks = Resources.LoadAll("chunks/");
+        numOfRows = 0;
 
-        TextAsset txt2 = (TextAsset)Resources.Load("chunk2", typeof(TextAsset));
-        List<string> lines2 = new List<string>(txt2.text.Split('\n'));
+        TextAsset txt;
+        List<string> lines;
+        //numOfColumns = lines[1].Length;
+        numOfColumns = 0;
 
-        TextAsset txt3 = (TextAsset)Resources.Load("chunk3", typeof(TextAsset));
-        List<string> lines3 = new List<string>(txt3.text.Split('\n'));
-
-        TextAsset txt4 = (TextAsset)Resources.Load("chunk4", typeof(TextAsset));
-        List<string> lines4 = new List<string>(txt4.text.Split('\n'));
-
-        TextAsset txt5 = (TextAsset)Resources.Load("chunk5", typeof(TextAsset));
-        List<string> lines5 = new List<string>(txt5.text.Split('\n'));
-
-        numOfRows = System.Int32.Parse(lines[0]) + System.Int32.Parse(lines2[0]) + System.Int32.Parse(lines3[0]) + System.Int32.Parse(lines4[0]) + System.Int32.Parse(lines5[0]);
-        numOfColumns = lines[1].Length;
-        //if (lines[0][lines[0].Length - 1] == '\0') numOfColumns--;
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            txt = (TextAsset)Resources.Load(System.String.Concat("chunks/chunk", (i + 1)), typeof(TextAsset));
+            lines = new List<string>(txt.text.Split('\n'));
+            numOfRows += System.Int32.Parse(lines[0]);
+            for (int j = 1; j <= System.Int32.Parse(lines[0]); j++)
+            {
+                if (lines[j].Length > numOfColumns)
+                    numOfColumns = lines[j].Length;
+            }
+        }
 
         nodes = new TileObject[numOfColumns, numOfRows];
 
-        loadLevel(lines);
-        loadLevel(lines2);
-        loadLevel(lines3);
-        loadLevel(lines4);
-        loadLevel(lines5);
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            txt = (TextAsset)Resources.Load(System.String.Concat("chunks/chunk", (i + 1)), typeof(TextAsset));
+            lines = new List<string>(txt.text.Split('\n'));
+            loadLevel(lines);
+        }
     }
 
-    void spawnBug(string bugInfo, int actualLevelLineSize){
+    void spawnBug(string bugInfo, int actualLevelLineSize)
+    {
         string bugPos = bugInfo.Split("):")[0];
         string bugPath = bugInfo.Split("):")[1];
 
@@ -139,15 +142,16 @@ public class GridManager : MonoBehaviour
 
         int bugPathCol;
         int bugPathRow;
-        
+
         Vector3 cellPosBug = GetGridCellCenter(GetIndexByCoords(bugPosRow, bugPosCol));
 
         string[] separators = new string[] { "[(", "),(", ")]" };
         System.String[] bugPathCoords = bugPath.Split(separators, System.StringSplitOptions.RemoveEmptyEntries);
 
         List<Vector3> recorrido = new List<Vector3>();
-        
-        for(int i = 0 ; i < bugPathCoords.Length; i++){
+
+        for (int i = 0; i < bugPathCoords.Length; i++)
+        {
             bugPathCol = System.Int32.Parse(bugPathCoords[i].Split(',', System.StringSplitOptions.RemoveEmptyEntries)[1]) - 1;
             bugPathRow = System.Int32.Parse(bugPathCoords[i].Split(',', System.StringSplitOptions.RemoveEmptyEntries)[0]) - 1 + (lineCounter - actualLevelLineSize);
             recorrido.Add(GetGridCellCenter(GetIndexByCoords(bugPathRow, bugPathCol)));
@@ -165,45 +169,59 @@ public class GridManager : MonoBehaviour
         int randomAux = 0;
         for (int i = 1; i < lines.Count; i++)
         {
-            if(i > System.Int32.Parse(lines[0])){
+            if (i > System.Int32.Parse(lines[0]))
+            {
                 spawnBug(lines[i], System.Int32.Parse(lines[0]));
             }
-            else{
+            else
+            {
 
-                for (int j = 0; j < lines[i].Length; j++)
+                for (int j = 0; j < /*lines[i].Length*/numOfColumns; j++)
                 {
-                    if (lines[i][j] == '\0') continue;
+                    if (j == lines[i].Length /*&& j >= numOfColumns*/)
+                    {
+                        for (int x = lines[i].Length; x < numOfColumns - j; x++)
+                        {
+                            //Instantiate(negro, new Vector3(cellPos.x + (0.64f*z), cellPos.y, cellPos.z), Quaternion.identity);
+                            index++;
+                        }
+                        break;
+                    }
+
+                    Debug.Log(lines[i][j]);
 
                     cellPos = GetGridCellCenter(index);
 
                     if (j == 0)
                     {
-                        for(int z=1; z<=10; ++z)
+                        for (int z = 1; z <= 10; ++z)
                         {
-                            Instantiate(negro, new Vector3(cellPos.x - (0.64f*z), cellPos.y, cellPos.z), Quaternion.identity);
+                            Instantiate(negro, new Vector3(cellPos.x - (0.64f * z), cellPos.y, cellPos.z), Quaternion.identity);
                         }
                         int randomRocas = Random.Range(0, 2);
                         Instantiate(paredIzq[randomRocas], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
-                        Instantiate(paredDer[(randomRocas+1)%2], new Vector3(cellPos.x - 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
+                        Instantiate(paredDer[(randomRocas + 1) % 2], new Vector3(cellPos.x - 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
                     }
-                        
-                    if(j == lines[i].Length - 1)
+
+                    if (j == lines[i].Length - 1)
                     {
-                        for (int z = 1; z <= 10; ++z)
+                        //int contadorNegros = 1;
+                        for (var (z, contadorNegros) = (j, 1); z <= 10 + numOfColumns; ++z, ++contadorNegros)
                         {
-                            Instantiate(negro, new Vector3(cellPos.x + (0.64f*z), cellPos.y, cellPos.z), Quaternion.identity);
+                            Instantiate(negro, new Vector3(cellPos.x + (0.64f * contadorNegros), cellPos.y, cellPos.z), Quaternion.identity);
+
                         }
                         int randomRocas = Random.Range(0, 2);
                         Instantiate(paredDer[randomRocas], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
                         Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x + 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
-                    }   
-
-                    if(lineCounter == 0)
-                    {
-                        Instantiate(pradoInf[j%2], cellPos, Quaternion.identity);
-                        Instantiate(pradoSup[j%2], new Vector3(cellPos.x, cellPos.y + 0.64f, cellPos.z), Quaternion.identity);
                     }
-                    
+
+                    if (lineCounter == 0)
+                    {
+                        Instantiate(pradoInf[j % 2], cellPos, Quaternion.identity);
+                        Instantiate(pradoSup[j % 2], new Vector3(cellPos.x, cellPos.y + 0.64f, cellPos.z), Quaternion.identity);
+                    }
+
                     randomAux = Random.Range(0, 3);
 
                     switch (lines[i][j])
@@ -289,8 +307,13 @@ public class GridManager : MonoBehaviour
                         case 'U':
                             node = Instantiate(finish[12], cellPos, Quaternion.identity).GetComponent<Finish>();
                             break;
-                        case '(':
-
+                        // case null:
+                        // case '\0':
+                        //     // for(int x=0;x<numOfColumns-j;x++){
+                        //     //    Instantiate(negro, new Vector3(cellPos.x + (0.64f*z), cellPos.y, cellPos.z), Quaternion.identity);
+                        //     // }
+                        //     node = null;
+                        //     break;
                         default:
                             break;
                     }
@@ -355,7 +378,7 @@ public class GridManager : MonoBehaviour
 
     public int GetIndexByCoords(int row, int column)
     {
-        int index = (row*numOfColumns) + column;
+        int index = (row * numOfColumns) + column;
         return index;
     }
 
