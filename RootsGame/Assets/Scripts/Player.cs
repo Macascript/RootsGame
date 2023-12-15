@@ -122,6 +122,7 @@ public class Player : MonoBehaviour
         if (node == null)
         {
             Debug.Log("null");
+            GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
             return;
         }
         else if (!GusanoBehaviour.listaIndices.ContainsValue(GridManager.instance.GetGridIndex(node.transform.position)) && node.onStep())

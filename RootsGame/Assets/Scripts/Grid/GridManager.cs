@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class GridManager : MonoBehaviour
 {
@@ -100,7 +101,7 @@ public class GridManager : MonoBehaviour
 
     void CalculateTiles()
     {
-        Object[] chunks = Resources.LoadAll("chunks/");
+        UnityEngine.Object[] chunks = Resources.LoadAll("chunks/");
         numOfRows = 0;
 
         TextAsset txt;
@@ -122,9 +123,9 @@ public class GridManager : MonoBehaviour
 
         nodes = new TileObject[numOfColumns, numOfRows];
 
-        for (int i = 0; i < chunks.Length; i++)
+        for (int a = 0; a < chunks.Length; a++)
         {
-            txt = (TextAsset)Resources.Load(System.String.Concat("chunks/chunk", (i + 1)), typeof(TextAsset));
+            txt = (TextAsset)Resources.Load(System.String.Concat("chunks/chunk", (a + 1)), typeof(TextAsset));
             lines = new List<string>(txt.text.Split('\n'));
             loadLevel(lines);
         }
@@ -145,15 +146,18 @@ public class GridManager : MonoBehaviour
 
         Vector3 cellPosBug = GetGridCellCenter(GetIndexByCoords(bugPosRow, bugPosCol));
 
-        string[] separators = new string[] { "[(", "),(", ")]" };
+        string[] separators = new string[] { "[(", "),(", ")]" , "\0", "\n", "\r" };
         System.String[] bugPathCoords = bugPath.Split(separators, System.StringSplitOptions.RemoveEmptyEntries);
 
         List<Vector3> recorrido = new List<Vector3>();
 
         for (int i = 0; i < bugPathCoords.Length; i++)
         {
-            bugPathCol = System.Int32.Parse(bugPathCoords[i].Split(',', System.StringSplitOptions.RemoveEmptyEntries)[1]) - 1;
-            bugPathRow = System.Int32.Parse(bugPathCoords[i].Split(',', System.StringSplitOptions.RemoveEmptyEntries)[0]) - 1 + (lineCounter - actualLevelLineSize);
+            separators = new string[] { ",", "\0", " ", "\n", "\r"};
+            string[] aux = bugPathCoords[i].Split(separators, System.StringSplitOptions.RemoveEmptyEntries);
+
+            bugPathCol = System.Int32.Parse(aux[1]) - 1;
+            bugPathRow = System.Int32.Parse(aux[0]) - 1 + (lineCounter - actualLevelLineSize);
             recorrido.Add(GetGridCellCenter(GetIndexByCoords(bugPathRow, bugPathCol)));
         }
         recorrido.Add(cellPosBug);
@@ -176,19 +180,15 @@ public class GridManager : MonoBehaviour
             else
             {
 
-                for (int j = 0; j < /*lines[i].Length*/numOfColumns; j++)
+                for (int j = 0; j < numOfColumns; j++)
                 {
-                    if (j == lines[i].Length /*&& j >= numOfColumns*/)
+                    //if (j == lines[i].Length) continue;
+                    if (j >= lines[i].Length)
                     {
-                        for (int x = lines[i].Length; x < numOfColumns - j; x++)
-                        {
-                            //Instantiate(negro, new Vector3(cellPos.x + (0.64f*z), cellPos.y, cellPos.z), Quaternion.identity);
-                            index++;
-                        }
-                        break;
+                        nodes[j, lineCounter] = null;
+                        index++;
+                        continue;
                     }
-
-                    Debug.Log(lines[i][j]);
 
                     cellPos = GetGridCellCenter(index);
 
@@ -198,7 +198,7 @@ public class GridManager : MonoBehaviour
                         {
                             Instantiate(negro, new Vector3(cellPos.x - (0.64f * z), cellPos.y, cellPos.z), Quaternion.identity);
                         }
-                        int randomRocas = Random.Range(0, 2);
+                        int randomRocas = UnityEngine.Random.Range(0, 2);
                         Instantiate(paredIzq[randomRocas], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
                         Instantiate(paredDer[(randomRocas + 1) % 2], new Vector3(cellPos.x - 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
                     }
@@ -211,18 +211,18 @@ public class GridManager : MonoBehaviour
                             Instantiate(negro, new Vector3(cellPos.x + (0.64f * contadorNegros), cellPos.y, cellPos.z), Quaternion.identity);
 
                         }
-                        int randomRocas = Random.Range(0, 2);
+                        int randomRocas = UnityEngine.Random.Range(0, 2);
                         Instantiate(paredDer[randomRocas], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
                         Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x + 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
                     }
 
-                    if (lineCounter == 0)
+                    if (lineCounter == 0 && j < lines[i].Length)
                     {
                         Instantiate(pradoInf[j % 2], cellPos, Quaternion.identity);
                         Instantiate(pradoSup[j % 2], new Vector3(cellPos.x, cellPos.y + 0.64f, cellPos.z), Quaternion.identity);
                     }
 
-                    randomAux = Random.Range(0, 3);
+                    randomAux = UnityEngine.Random.Range(0, 3);
 
                     switch (lines[i][j])
                     {
@@ -239,13 +239,13 @@ public class GridManager : MonoBehaviour
                             //node = new Water(cellPos, WaterType.Simple, sand[randomAux], water[0]);
                             Instantiate(sand[randomAux], cellPos, Quaternion.identity);
                             node = Instantiate(water[0], cellPos, Quaternion.identity).GetComponent<Water>();
-                            node.transform.Rotate(new Vector3(0.0f, 0.0f, Random.Range(0, 4) * 90));
+                            node.transform.Rotate(new Vector3(0.0f, 0.0f, UnityEngine.Random.Range(0, 4) * 90));
                             break;
                         case 'D':
                             //node = new Water(cellPos, WaterType.Double, sand[randomAux], water[1]);
                             Instantiate(sand[randomAux], cellPos, Quaternion.identity);
                             node = Instantiate(water[1], cellPos, Quaternion.identity).GetComponent<Water>();
-                            node.transform.Rotate(new Vector3(0.0f, 0.0f, Random.Range(0, 4) * 90));
+                            node.transform.Rotate(new Vector3(0.0f, 0.0f, UnityEngine.Random.Range(0, 4) * 90));
                             break;
                         case 'E':
                             //node = new Water(cellPos, WaterType.Max, sand[randomAux], water[2]);
@@ -307,17 +307,9 @@ public class GridManager : MonoBehaviour
                         case 'U':
                             node = Instantiate(finish[12], cellPos, Quaternion.identity).GetComponent<Finish>();
                             break;
-                        // case null:
-                        // case '\0':
-                        //     // for(int x=0;x<numOfColumns-j;x++){
-                        //     //    Instantiate(negro, new Vector3(cellPos.x + (0.64f*z), cellPos.y, cellPos.z), Quaternion.identity);
-                        //     // }
-                        //     node = null;
-                        //     break;
                         default:
                             break;
                     }
-                    //Debug.Log("i: " + i + ", jota: " + j + ", lineas archivo: " + (int)lines[0][0]);
                     nodes[j, lineCounter] = node;
                     index++;
                 }
