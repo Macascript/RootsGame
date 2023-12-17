@@ -3,9 +3,10 @@
     "",
     "\\RootsGame",
     "\\RootsGame\\Assets",
+    "\\RootsGame\\Assets\\Resources",
     "\\RootsGame\\Assets\\Resources\\chunks",
     "\\RootsGame\\Assets\\Scripts"
   ],
-  "SelectedNode": "\\RootsGame\\Assets\\Scripts\\Player.cs",
+  "SelectedNode": "\\RootsGame\\Assets\\Scripts\\MoverGrid.cs",
   "PreviewInSolutionExplorer": false
 }
