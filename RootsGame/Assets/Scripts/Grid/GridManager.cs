@@ -97,6 +97,7 @@ public class GridManager : MonoBehaviour
     private void Awake()
     {
         CalculateTiles();
+        isGameOver = false;
     }
 
     private void Update() { }
