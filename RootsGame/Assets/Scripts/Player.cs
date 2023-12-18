@@ -182,6 +182,7 @@ public class Player : MonoBehaviour
 
     void gameOver()
     {
+        GridManager.instance.isGameOver = true;
         Debug.Log("gameOver");
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong(false);
         StartCoroutine(gameOverCoroutine(panelGameOver));

@@ -15,6 +15,7 @@ public class GestureDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GridManager.instance.isGameOver) return;
         if (Input.GetKeyDown(KeyCode.A)) onLeft.Invoke();
         if (Input.GetKeyDown(KeyCode.S)) onDown.Invoke();
         if (Input.GetKeyDown(KeyCode.D)) onRight.Invoke();

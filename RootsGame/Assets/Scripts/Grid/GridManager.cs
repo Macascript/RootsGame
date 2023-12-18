@@ -52,6 +52,8 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     public GameObject[] finish;
 
+    public bool isGameOver = false;
+
 
 
     //private int gusanitos = 0;
@@ -212,7 +214,7 @@ public class GridManager : MonoBehaviour
                             negroPos = new Vector3(cellPos.x + (0.64f * contadorNegros), cellPos.y, cellPos.z);
                             Instantiate(negro, negroPos, Quaternion.identity);
 
-                            if( (GetRow(GetGridIndex(negroPos)) - 1 >= 0 && nodes[ z + 1 , GetRow(GetGridIndex(negroPos)) - 1] != null) )
+                            if(GetRow(GetGridIndex(negroPos)) - 1 >= 0 && nodes[ z + 1 , GetRow(GetGridIndex(negroPos)) - 1] != null)
                             {
                                 randomRocas = UnityEngine.Random.Range(0, 2);
                                 GameObject paredSup = Instantiate(paredDer[randomRocas], new Vector3(cellPos.x + (0.64f * contadorNegros), cellPos.y + 0.385f, cellPos.z), Quaternion.identity);
@@ -322,7 +324,7 @@ public class GridManager : MonoBehaviour
                     }
                     nodes[j, lineCounter] = node;
                     index++;
-                    if ((GetRow(GetGridIndex(cellPos)) - 1 >= 0 && nodes[j, GetRow(GetGridIndex(cellPos)) - 1] == null))
+                    if (GetRow(GetGridIndex(cellPos)) - 1 >= 0 && nodes[j, GetRow(GetGridIndex(cellPos)) - 1] == null)
                     {
                         int randomRocas = UnityEngine.Random.Range(0, 2);
                         GameObject paredSup = Instantiate(paredDer[randomRocas], new Vector3(cellPos.x, cellPos.y + 0.385f, cellPos.z), Quaternion.identity);
