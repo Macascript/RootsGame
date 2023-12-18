@@ -55,9 +55,6 @@ public class GridManager : MonoBehaviour
     public bool isGameOver = false;
 
 
-
-    //private int gusanitos = 0;
-
     public static GridManager instance
     {
         get
