@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 public class GridManager : MonoBehaviour
 {
@@ -52,8 +53,11 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     public GameObject[] finish;
 
-    public bool isGameOver = false;
+    public bool isGameOver {get; private set;} = false;
 
+    public void setGameOver(){
+        isGameOver = true;
+    }
 
     public static GridManager instance
     {
