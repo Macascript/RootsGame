@@ -86,6 +86,8 @@ public class GridManager : MonoBehaviour
     private int index = 0;
     private int lineCounter = 0;
     public GameObject brote;
+    private bool start_done = false;
+    public int start_node {private set; get;}
 
     public Vector3 Origin
     {
@@ -99,6 +101,7 @@ public class GridManager : MonoBehaviour
     {
         CalculateTiles();
         isGameOver = false;
+        start_done = false;
     }
 
     private void Update() { }
@@ -183,24 +186,24 @@ public class GridManager : MonoBehaviour
             }
             else
             {
-
+                start_done = false;
                 for (int j = 0; j < numOfColumns; j++)
                 {
-                    //if (j == lines[i].Length) continue;
                     if (j >= lines[i].Length)
                     {
                         nodes[j, lineCounter] = null;
                         index++;
                         continue;
-                    }
+                    }   
 
                     cellPos = GetGridCellCenter(index);
 
-                    if (j == 0)
+                    if (!start_done && lines[i][j] != ' ')
                     {
-                        for (int z = 1; z <= 10; ++z)
+                        start_done = true;
+                        for (var (z, contadorNegros) = (0, 1); z <= 10 + j; ++z, ++contadorNegros)
                         {
-                            Instantiate(negro, new Vector3(cellPos.x - (0.64f * z), cellPos.y, cellPos.z), Quaternion.identity);
+                            Instantiate(negro, new Vector3(cellPos.x - (0.64f * contadorNegros), cellPos.y, cellPos.z), Quaternion.identity);
                         }
                         int randomRocas = UnityEngine.Random.Range(0, 2);
                         Instantiate(paredIzq[randomRocas], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
@@ -209,7 +212,7 @@ public class GridManager : MonoBehaviour
 
                     if (j == lines[i].Length - 1)
                     {
-                        int randomRocas = 0;
+                        int randomRocas;
                         Vector3 negroPos;
                         for (var (z, contadorNegros) = (j, 1); z <= 10 + numOfColumns; ++z, ++contadorNegros)
                         {
@@ -230,7 +233,7 @@ public class GridManager : MonoBehaviour
                         Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x + 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
                     }
 
-                    if (lineCounter == 0 && j < lines[i].Length)
+                    if (lineCounter == 0 && j < lines[i].Length && lines[i][j] != ' ')
                     {
                         Instantiate(pradoInf[j % 2], cellPos, Quaternion.identity);
                         Instantiate(pradoSup[j % 2], new Vector3(cellPos.x, cellPos.y + 0.64f, cellPos.z), Quaternion.identity);
@@ -240,6 +243,10 @@ public class GridManager : MonoBehaviour
 
                     switch (lines[i][j])
                     {
+                        case '#':
+                            start_node = j;
+                            node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
+                            break;
                         case 'A':
                             //node = new Sand(cellPos, sand[randomAux]);
                             node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
@@ -321,12 +328,16 @@ public class GridManager : MonoBehaviour
                         case 'U':
                             node = Instantiate(finish[12], cellPos, Quaternion.identity).GetComponent<Finish>();
                             break;
+                        case ' ':
+                            Instantiate(negro, new Vector3(cellPos.x, cellPos.y, cellPos.z), Quaternion.identity);
+                            node = null;
+                            break;
                         default:
                             break;
                     }
                     nodes[j, lineCounter] = node;
                     index++;
-                    if (GetRow(GetGridIndex(cellPos)) - 1 >= 0 && nodes[j, GetRow(GetGridIndex(cellPos)) - 1] == null)
+                    if ( (GetRow(GetGridIndex(cellPos)) - 1 >= 0 && nodes[j, GetRow(GetGridIndex(cellPos)) - 1] == null && node != null) || (GetRow(GetGridIndex(cellPos)) - 1 >= 0 && nodes[j, GetRow(GetGridIndex(cellPos)) - 1] != null && node == null))
                     {
                         int randomRocas = UnityEngine.Random.Range(0, 2);
                         GameObject paredSup = Instantiate(paredDer[randomRocas], new Vector3(cellPos.x, cellPos.y + 0.385f, cellPos.z), Quaternion.identity);
