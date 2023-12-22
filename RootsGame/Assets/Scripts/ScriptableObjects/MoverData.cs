@@ -36,4 +36,30 @@ public class MoverData : ScriptableObject
     [SerializeField]
     private Sprite to_arriba_izquierda;
     public Sprite ToArribaIzquierda { get { return ToArribaDerecha; } }
+
+
+    public Sprite GetByDirection(Directions direction)
+    {
+        switch (direction)
+        {
+            case Directions.Up:
+                return ToArriba;
+            case Directions.RightUp:
+                return ToArribaDerecha;
+            case Directions.Right:
+                return ToDerecha;
+            case Directions.RightDown:
+                return ToAbajoDerecha;
+            case Directions.Down:
+                return ToAbajo;
+            case Directions.LeftDown:
+                return ToAbajoIzquierda;
+            case Directions.Left:
+                return ToIzquierda;
+            case Directions.LeftUp:
+                return ToArribaIzquierda;
+            default:
+                return ToAbajo;
+        }
+    }
 }
