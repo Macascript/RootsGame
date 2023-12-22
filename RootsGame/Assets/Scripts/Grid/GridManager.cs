@@ -345,17 +345,11 @@ public class GridManager : MonoBehaviour
                         paredSup.transform.Rotate(new Vector3(0.0f, 0.0f, 90));
                         paredInf.transform.Rotate(new Vector3(0.0f, 0.0f, 90));
                     }
-                    if ( GetColumn(GetGridIndex(cellPos)) - 1 >= 0 && nodes[GetColumn(GetGridIndex(cellPos)) - 1, lineCounter] != null && node == null )
+                    if ( GetColumn(GetGridIndex(cellPos)) - 1 >= 0 && ((nodes[GetColumn(GetGridIndex(cellPos)) - 1, lineCounter] != null && node == null) || (nodes[GetColumn(GetGridIndex(cellPos)) - 1, lineCounter] == null && node != null)) )
                     {
                         int randomRocas = UnityEngine.Random.Range(0, 2);
                         Instantiate(paredDer[randomRocas], new Vector3(cellPos.x - 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
                         Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
-                    }
-                    if ( GetColumn(GetGridIndex(cellPos)) + 1 < numOfColumns && nodes[GetColumn(GetGridIndex(cellPos)) + 1, lineCounter] != null && node == null )
-                    {
-                        int randomRocas = UnityEngine.Random.Range(0, 2);
-                        Instantiate(paredDer[randomRocas], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
-                        Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x + 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
                     }
                 }
                 lineCounter++;
