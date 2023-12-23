@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
         GridManager.instance.nodes[GridManager.instance.start_node, 0] = Instantiate(to_abajo, GridManager.instance.nodes[GridManager.instance.start_node, 0].transform.position, Quaternion.identity).GetComponent<Root>();
         actualNode = GridManager.instance.nodes[GridManager.instance.start_node, 0];
         ((Root)actualNode).birthAnimation();
+        this.transform.position = actualNode.transform.position;
     }
 
     public int getWaterEnergy()
