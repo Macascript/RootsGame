@@ -21,3 +21,13 @@ public enum WaterType
     Double,
     Max
 }
+
+public enum MineralType
+{
+    Calcium,
+    Sulphur,
+    Magnessium,
+    Potassium,
+    Phosporus,
+    Nitrogen
+}

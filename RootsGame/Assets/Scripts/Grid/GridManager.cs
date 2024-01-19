@@ -24,6 +24,9 @@ public class GridManager : MonoBehaviour
     private GameObject food;
 
     [SerializeField]
+    private GameObject []mineral;
+
+    [SerializeField]
     private GameObject powerUp;
 
     [SerializeField]
@@ -276,7 +279,7 @@ public class GridManager : MonoBehaviour
                         case 'F':
                             //node = new Bug(cellPos, sand[randomAux]);
                             Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                            //node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Bug>();
+                            //node = Instantiate(mineral, cellPos, Quaternion.identity).GetComponent<Mineral>();
                             break;
                         case 'G':
                             //node = new Food(cellPos, sand[randomAux]);
@@ -288,6 +291,36 @@ public class GridManager : MonoBehaviour
                             node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
                             //Instantiate(bug, cellPos, Quaternion.identity).GetComponent<GusanoBehaviour>().pointsPrefab = recorridos[gusanitos];
                             //gusanitos++;
+                            break;
+                        case '1':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[0], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '2':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[1], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '3':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[2], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '4':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[3], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '5':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[4], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '6':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[5], cellPos, Quaternion.identity).GetComponent<Mineral>();
                             break;
                         case 'I':
                             node = Instantiate(finish[0], cellPos, Quaternion.identity).GetComponent<Finish>();
@@ -430,17 +463,17 @@ public class GridManager : MonoBehaviour
         //Top
         leftNodeRow = row - 1;
         leftNodeColumn = column;
-        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        if(GridManager.instance.player.getMineralPower() > 0)neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Top Right
         leftNodeRow = row - 1;
         leftNodeColumn = column + 1;
-        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        if (GridManager.instance.player.getMineralPower() > 0) neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Top Left
         leftNodeRow = row - 1;
         leftNodeColumn = column - 1;
-        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        if (GridManager.instance.player.getMineralPower() > 0) neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Right
         leftNodeRow = row;

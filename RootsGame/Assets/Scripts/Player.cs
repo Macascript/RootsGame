@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
 
     private bool food = false;
 
+    private int mineral = 0;
+
     private TileObject actualNode = null;
 
     [SerializeField]
@@ -58,14 +60,54 @@ public class Player : MonoBehaviour
     {
         return waterEnergy;
     }
+    public int getMineralPower()
+    {
+        return mineral;
+    }
     public bool getFoodEnergy()
     {
         return food;
     }
 
+    public bool useMineralPower()
+    {
+        if(mineral > 0)
+        {
+            mineral--;
+            return true;
+        }
+        else
+            return false;
+    }
+
     public void gainFoodEnergy()
     {
         food = true;
+    }
+
+    public void gainMineralPower(MineralType mineralType)
+    {
+        switch (mineralType)
+        {
+            case MineralType.Calcium:
+                mineral++;
+                break;
+            case MineralType.Sulphur:
+                mineral += 2;
+                break;
+            case MineralType.Magnessium:
+                mineral += 3;
+                break;
+            case MineralType.Potassium:
+                mineral += 4;
+                break;
+            case MineralType.Phosporus:
+                mineral += 5;
+                break; 
+            case MineralType.Nitrogen:
+                mineral += 6;
+                break;  
+        }
     }
 
     public void useFoodEnergy()
@@ -219,6 +261,12 @@ public class Player : MonoBehaviour
     {
         if (direction == Directions.None) return;
 
+        if(direction == Directions.Up || direction == Directions.RightUp || direction == Directions.LeftUp && !useMineralPower())
+        {
+            GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
+            return;
+        }
+
         this.transform.position = actualNode.transform.position;
         actualNode.nextTileObject = GridManager.instance.GetNeighbour(actualNode, direction);
         goToNode(actualNode.nextTileObject, direction);
@@ -229,5 +277,7 @@ public class Player : MonoBehaviour
     public void nextDownNode() => nextNode(Directions.Down);
     public void nextLeftDownNode() => nextNode(Directions.LeftDown);
     public void nextLeftNode() => nextNode(Directions.Left);
-
+    public void nextUpNode() => nextNode(Directions.Up);
+    public void nextRightUpNode() => nextNode(Directions.RightUp);
+    public void nextLeftUpNode() => nextNode(Directions.LeftUp);
 }
