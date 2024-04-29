@@ -2,8 +2,8 @@
     "m_SelectedDeviceId": "vobenn95x4fenvfi",
     "m_SelectedPackage": {
         "deviceId": "vobenn95x4fenvfi",
-        "name": "com.DefaultCompany.RootsGame",
-        "processId": 14591,
+        "name": "com.TengoUnProblema.UnderGrow",
+        "processId": 4095,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,67 +11,37 @@
         {
             "deviceId": "vobenn95x4fenvfi",
             "name": "com.DefaultCompany.RootsGame",
-            "processId": 27277,
-            "exited": true
-        },
-        {
-            "deviceId": "vobenn95x4fenvfi",
-            "name": "com.DefaultCompany.RootsGame",
-            "processId": 27740,
-            "exited": true
-        },
-        {
-            "deviceId": "vobenn95x4fenvfi",
-            "name": "com.DefaultCompany.RootsGame",
-            "processId": 28075,
-            "exited": true
-        },
-        {
-            "deviceId": "vobenn95x4fenvfi",
-            "name": "com.DefaultCompany.RootsGame",
-            "processId": 30949,
-            "exited": true
-        },
-        {
-            "deviceId": "vobenn95x4fenvfi",
-            "name": "com.google.android.apps.docs",
-            "processId": 4026,
-            "exited": false
-        },
-        {
-            "deviceId": "vobenn95x4fenvfi",
-            "name": "com.DefaultCompany.RootsGame",
-            "processId": 8148,
-            "exited": false
-        },
-        {
-            "deviceId": "vobenn95x4fenvfi",
-            "name": "com.DefaultCompany.RootsGame",
-            "processId": 8837,
-            "exited": false
-        },
-        {
-            "deviceId": "vobenn95x4fenvfi",
-            "name": "com.DefaultCompany.RootsGame",
             "processId": 12873,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "vobenn95x4fenvfi",
             "name": "com.DefaultCompany.RootsGame",
             "processId": 13220,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "vobenn95x4fenvfi",
             "name": "com.DefaultCompany.RootsGame",
             "processId": 13939,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "vobenn95x4fenvfi",
             "name": "com.DefaultCompany.RootsGame",
             "processId": 14591,
+            "exited": true
+        },
+        {
+            "deviceId": "vobenn95x4fenvfi",
+            "name": "com.miui.home",
+            "processId": 1995,
+            "exited": false
+        },
+        {
+            "deviceId": "vobenn95x4fenvfi",
+            "name": "com.TengoUnProblema.UnderGrow",
+            "processId": 4095,
             "exited": false
         }
     ],

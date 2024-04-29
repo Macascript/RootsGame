@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using Unity.VisualScripting;
 
 public class GridManager : MonoBehaviour
 {
@@ -20,6 +22,9 @@ public class GridManager : MonoBehaviour
 
     [SerializeField]
     private GameObject food;
+
+    [SerializeField]
+    private GameObject []mineral;
 
     [SerializeField]
     private GameObject powerUp;
@@ -51,7 +56,11 @@ public class GridManager : MonoBehaviour
     [SerializeField]
     public GameObject[] finish;
 
-    private int gusanitos = 0;
+    public bool isGameOver {get; private set;} = false;
+
+    public void setGameOver(){
+        isGameOver = true;
+    }
 
     public static GridManager instance
     {
@@ -80,6 +89,8 @@ public class GridManager : MonoBehaviour
     private int index = 0;
     private int lineCounter = 0;
     public GameObject brote;
+    private bool start_done = false;
+    public int start_node {private set; get;}
 
     public Vector3 Origin
     {
@@ -92,38 +103,76 @@ public class GridManager : MonoBehaviour
     private void Awake()
     {
         CalculateTiles();
+        isGameOver = false;
+        start_done = false;
     }
 
-    private void Update(){}
+    private void Update() { }
 
     void CalculateTiles()
     {
-        TextAsset txt = (TextAsset)Resources.Load("chunk", typeof(TextAsset));
-        List<string> lines = new List<string>(txt.text.Split('\n'));
+        UnityEngine.Object[] chunks = Resources.LoadAll("chunks/");
+        numOfRows = 0;
 
-        TextAsset txt2 = (TextAsset)Resources.Load("chunk2", typeof(TextAsset));
-        List<string> lines2 = new List<string>(txt2.text.Split('\n'));
+        TextAsset txt;
+        List<string> lines;
+        //numOfColumns = lines[1].Length;
+        numOfColumns = 0;
 
-        TextAsset txt3 = (TextAsset)Resources.Load("chunk3", typeof(TextAsset));
-        List<string> lines3 = new List<string>(txt3.text.Split('\n'));
-
-        TextAsset txt4 = (TextAsset)Resources.Load("chunk4", typeof(TextAsset));
-        List<string> lines4 = new List<string>(txt4.text.Split('\n'));
-
-        TextAsset txt5 = (TextAsset)Resources.Load("chunk5", typeof(TextAsset));
-        List<string> lines5 = new List<string>(txt5.text.Split('\n'));
-
-        numOfRows = lines.Count + lines2.Count + lines3.Count + lines4.Count + lines5.Count;
-        numOfColumns = lines[0].Length;
-        //if (lines[0][lines[0].Length - 1] == '\0') numOfColumns--;
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            txt = (TextAsset)Resources.Load(System.String.Concat("chunks/chunk", (i + 1)), typeof(TextAsset));
+            lines = new List<string>(txt.text.Split('\n'));
+            numOfRows += System.Int32.Parse(lines[0]);
+            for (int j = 1; j <= System.Int32.Parse(lines[0]); j++)
+            {
+                if (lines[j].Length > numOfColumns)
+                    numOfColumns = lines[j].Length;
+            }
+        }
 
         nodes = new TileObject[numOfColumns, numOfRows];
 
-        loadLevel(lines);
-        loadLevel(lines2);
-        loadLevel(lines3);
-        loadLevel(lines4);
-        loadLevel(lines5);
+        for (int a = 0; a < chunks.Length; a++)
+        {
+            txt = (TextAsset)Resources.Load(System.String.Concat("chunks/chunk", (a + 1)), typeof(TextAsset));
+            lines = new List<string>(txt.text.Split('\n'));
+            loadLevel(lines);
+        }
+    }
+
+    void spawnBug(string bugInfo, int actualLevelLineSize)
+    {
+        string bugPos = bugInfo.Split("):")[0];
+        string bugPath = bugInfo.Split("):")[1];
+
+        char[] simpleSeparators = new char[] { '(', ',' };
+
+        int bugPosCol = System.Int32.Parse(bugPos.Split(simpleSeparators, System.StringSplitOptions.RemoveEmptyEntries)[1]) - 1;
+        int bugPosRow = System.Int32.Parse(bugPos.Split(simpleSeparators, System.StringSplitOptions.RemoveEmptyEntries)[0]) - 1 + (lineCounter - actualLevelLineSize);
+
+        int bugPathCol;
+        int bugPathRow;
+
+        Vector3 cellPosBug = GetGridCellCenter(GetIndexByCoords(bugPosRow, bugPosCol));
+
+        string[] separators = new string[] { "[(", "),(", ")]" , "\0", "\n", "\r" };
+        System.String[] bugPathCoords = bugPath.Split(separators, System.StringSplitOptions.RemoveEmptyEntries);
+
+        List<Vector3> recorrido = new List<Vector3>();
+
+        for (int i = 0; i < bugPathCoords.Length; i++)
+        {
+            separators = new string[] { ",", "\0", " ", "\n", "\r"};
+            string[] aux = bugPathCoords[i].Split(separators, System.StringSplitOptions.RemoveEmptyEntries);
+
+            bugPathCol = System.Int32.Parse(aux[1]) - 1;
+            bugPathRow = System.Int32.Parse(aux[0]) - 1 + (lineCounter - actualLevelLineSize);
+            recorrido.Add(GetGridCellCenter(GetIndexByCoords(bugPathRow, bugPathCol)));
+        }
+        recorrido.Add(cellPosBug);
+
+        Instantiate(bug, cellPosBug, Quaternion.identity).GetComponent<GusanoBehaviour>().setPath(recorrido);
     }
 
     void loadLevel(List<string> lines)
@@ -132,142 +181,217 @@ public class GridManager : MonoBehaviour
         TileObject node = null;
 
         int randomAux = 0;
-        for (int i = 0; i < lines.Count; i++)
+        for (int i = 1; i < lines.Count; i++)
         {
-            //Debug.Log("lineCounter - " + lineCounter);
-            for (int j = 0; j < lines[i].Length; j++)
+            if (i > System.Int32.Parse(lines[0]))
             {
-                if (lines[i][j] == '\0') continue;
-
-                cellPos = GetGridCellCenter(index);
-
-                if (j == 0)
-                {
-                    for(int z=1; z<=10; ++z)
-                    {
-                        Instantiate(negro, new Vector3(cellPos.x - (0.64f*z), cellPos.y, cellPos.z), Quaternion.identity);
-                    }
-                    int randomRocas = Random.Range(0, 2);
-                    Instantiate(paredIzq[randomRocas], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
-                    Instantiate(paredDer[(randomRocas+1)%2], new Vector3(cellPos.x - 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
-                }
-                    
-                if(j == lines[i].Length - 1)
-                {
-                    for (int z = 1; z <= 10; ++z)
-                    {
-                        Instantiate(negro, new Vector3(cellPos.x + (0.64f*z), cellPos.y, cellPos.z), Quaternion.identity);
-                    }
-                    int randomRocas = Random.Range(0, 2);
-                    Instantiate(paredDer[randomRocas], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
-                    Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x + 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
-                }   
-
-                if(lineCounter == 0)
-                {
-                    Instantiate(pradoInf[j%2], cellPos, Quaternion.identity);
-                    Instantiate(pradoSup[j%2], new Vector3(cellPos.x, cellPos.y + 0.64f, cellPos.z), Quaternion.identity);
-                }
-                
-                //Debug.Log("j - " + line[j]);
-                randomAux = Random.Range(0, 3);
-
-                switch (lines[i][j])
-                {
-                    case 'A':
-                        //node = new Sand(cellPos, sand[randomAux]);
-                        node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
-                        break;
-                    case 'B':
-                        //node = new Rock(cellPos, sand[randomAux], rock);
-                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        node = Instantiate(rock, cellPos, Quaternion.identity).GetComponent<Rock>();
-                        break;
-                    case 'C':
-                        //node = new Water(cellPos, WaterType.Simple, sand[randomAux], water[0]);
-                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        node = Instantiate(water[0], cellPos, Quaternion.identity).GetComponent<Water>();
-                        node.transform.Rotate(new Vector3(0.0f, 0.0f, Random.Range(0, 4) * 90));
-                        break;
-                    case 'D':
-                        //node = new Water(cellPos, WaterType.Double, sand[randomAux], water[1]);
-                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        node = Instantiate(water[1], cellPos, Quaternion.identity).GetComponent<Water>();
-                        node.transform.Rotate(new Vector3(0.0f, 0.0f, Random.Range(0, 4) * 90));
-                        break;
-                    case 'E':
-                        //node = new Water(cellPos, WaterType.Max, sand[randomAux], water[2]);
-                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        node = Instantiate(water[2], cellPos, Quaternion.identity).GetComponent<Water>();
-                        break;
-                    case 'F':
-                        //node = new Bug(cellPos, sand[randomAux]);
-                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        //node = Instantiate(bug, cellPos, Quaternion.identity).GetComponent<Bug>();
-                        break;
-                    case 'G':
-                        //node = new Food(cellPos, sand[randomAux]);
-                        Instantiate(sand[randomAux], cellPos, Quaternion.identity);
-                        node = Instantiate(food, cellPos, Quaternion.identity).GetComponent<Food>();
-                        break;
-                    case 'H':
-                        //node = new PowerUp(cellPos, sand[randomAux]);
-                        node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
-                        Instantiate(bug, cellPos, Quaternion.identity).GetComponent<GusanoBehaviour>().pointsPrefab = recorridos[gusanitos];
-                        gusanitos++;
-                        break;
-                    case 'I':
-                        node = Instantiate(finish[0], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'J':
-                        node = Instantiate(finish[1], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'K':
-                        node = Instantiate(finish[2], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'L':
-                        node = Instantiate(finish[3], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'M':
-                        node = Instantiate(finish[4], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'N':
-                        node = Instantiate(finish[5], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'O':
-                        node = Instantiate(finish[6], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'P':
-                        node = Instantiate(finish[7], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'Q':
-                        node = Instantiate(finish[8], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'R':
-                        node = Instantiate(finish[9], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'S':
-                        node = Instantiate(finish[10], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'T':
-                        node = Instantiate(finish[11], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    case 'U':
-                        node = Instantiate(finish[12], cellPos, Quaternion.identity).GetComponent<Finish>();
-                        break;
-                    default:
-                        break;
-                }
-                nodes[j, lineCounter] = node;
-                index++;
+                spawnBug(lines[i], System.Int32.Parse(lines[0]));
             }
-            lineCounter++;
+            else
+            {
+                start_done = false;
+                for (int j = 0; j < numOfColumns; j++)
+                {
+                    if (j >= lines[i].Length)
+                    {
+                        nodes[j, lineCounter] = null;
+                        index++;
+                        continue;
+                    }   
+
+                    cellPos = GetGridCellCenter(index);
+
+                    if (!start_done && lines[i][j] != ' ')
+                    {
+                        start_done = true;
+                        for (var (z, contadorNegros) = (0, 1); z <= 10 + j; ++z, ++contadorNegros)
+                        {
+                            Instantiate(negro, new Vector3(cellPos.x - (0.64f * contadorNegros), cellPos.y, cellPos.z), Quaternion.identity);
+                        }
+                        int randomRocas = UnityEngine.Random.Range(0, 2);
+                        Instantiate(paredIzq[randomRocas], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                        Instantiate(paredDer[(randomRocas + 1) % 2], new Vector3(cellPos.x - 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
+                    }
+
+                    if (j == lines[i].Length - 1)
+                    {
+                        int randomRocas;
+                        Vector3 negroPos;
+                        for (var (z, contadorNegros) = (j, 1); z <= 10 + numOfColumns; ++z, ++contadorNegros)
+                        {
+                            negroPos = new Vector3(cellPos.x + (0.64f * contadorNegros), cellPos.y, cellPos.z);
+                            Instantiate(negro, negroPos, Quaternion.identity);
+
+                            if(GetRow(GetGridIndex(negroPos)) - 1 >= 0 && nodes[ z + 1 , GetRow(GetGridIndex(negroPos)) - 1] != null)
+                            {
+                                randomRocas = UnityEngine.Random.Range(0, 2);
+                                GameObject paredSup = Instantiate(paredDer[randomRocas], new Vector3(cellPos.x + (0.64f * contadorNegros), cellPos.y + 0.385f, cellPos.z), Quaternion.identity);
+                                GameObject paredInf = Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x + (0.64f * contadorNegros), cellPos.y + 0.255f, cellPos.z), Quaternion.identity);
+                                paredSup.transform.Rotate(new Vector3(0.0f, 0.0f, 90));
+                                paredInf.transform.Rotate(new Vector3(0.0f, 0.0f, 90));
+                            }
+                        }
+                        randomRocas = UnityEngine.Random.Range(0, 2);
+                        Instantiate(paredDer[randomRocas], new Vector3(cellPos.x + 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                        Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x + 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
+                    }
+
+                    if (lineCounter == 0 && j < lines[i].Length && lines[i][j] != ' ')
+                    {
+                        Instantiate(pradoInf[j % 2], cellPos, Quaternion.identity);
+                        Instantiate(pradoSup[j % 2], new Vector3(cellPos.x, cellPos.y + 0.64f, cellPos.z), Quaternion.identity);
+                    }
+
+                    randomAux = UnityEngine.Random.Range(0, 3);
+
+                    switch (lines[i][j])
+                    {
+                        case '#':
+                            start_node = j;
+                            node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
+                            break;
+                        case 'A':
+                            //node = new Sand(cellPos, sand[randomAux]);
+                            node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
+                            break;
+                        case 'B':
+                            //node = new Rock(cellPos, sand[randomAux], rock);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(rock, cellPos, Quaternion.identity).GetComponent<Rock>();
+                            break;
+                        case 'C':
+                            //node = new Water(cellPos, WaterType.Simple, sand[randomAux], water[0]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(water[0], cellPos, Quaternion.identity).GetComponent<Water>();
+                            node.transform.Rotate(new Vector3(0.0f, 0.0f, UnityEngine.Random.Range(0, 4) * 90));
+                            break;
+                        case 'D':
+                            //node = new Water(cellPos, WaterType.Double, sand[randomAux], water[1]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(water[1], cellPos, Quaternion.identity).GetComponent<Water>();
+                            node.transform.Rotate(new Vector3(0.0f, 0.0f, UnityEngine.Random.Range(0, 4) * 90));
+                            break;
+                        case 'E':
+                            //node = new Water(cellPos, WaterType.Max, sand[randomAux], water[2]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(water[2], cellPos, Quaternion.identity).GetComponent<Water>();
+                            break;
+                        case 'F':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            //node = Instantiate(mineral, cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case 'G':
+                            //node = new Food(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(food, cellPos, Quaternion.identity).GetComponent<Food>();
+                            break;
+                        case 'H':
+                            //node = new PowerUp(cellPos, sand[randomAux]);
+                            node = Instantiate(sand[randomAux], cellPos, Quaternion.identity).GetComponent<Sand>();
+                            //Instantiate(bug, cellPos, Quaternion.identity).GetComponent<GusanoBehaviour>().pointsPrefab = recorridos[gusanitos];
+                            //gusanitos++;
+                            break;
+                        case '1':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[0], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '2':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[1], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '3':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[2], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '4':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[3], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '5':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[4], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case '6':
+                            //node = new Bug(cellPos, sand[randomAux]);
+                            Instantiate(sand[randomAux], cellPos, Quaternion.identity);
+                            node = Instantiate(mineral[5], cellPos, Quaternion.identity).GetComponent<Mineral>();
+                            break;
+                        case 'I':
+                            node = Instantiate(finish[0], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'J':
+                            node = Instantiate(finish[1], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'K':
+                            node = Instantiate(finish[2], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'L':
+                            node = Instantiate(finish[3], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'M':
+                            node = Instantiate(finish[4], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'N':
+                            node = Instantiate(finish[5], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'O':
+                            node = Instantiate(finish[6], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'P':
+                            node = Instantiate(finish[7], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'Q':
+                            node = Instantiate(finish[8], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'R':
+                            node = Instantiate(finish[9], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'S':
+                            node = Instantiate(finish[10], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'T':
+                            node = Instantiate(finish[11], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case 'U':
+                            node = Instantiate(finish[12], cellPos, Quaternion.identity).GetComponent<Finish>();
+                            break;
+                        case ' ':
+                            Instantiate(negro, new Vector3(cellPos.x, cellPos.y, cellPos.z), Quaternion.identity);
+                            node = null;
+                            break;
+                        default:
+                            break;
+                    }
+                    nodes[j, lineCounter] = node;
+                    index++;
+                    if ( (GetRow(GetGridIndex(cellPos)) - 1 >= 0 && nodes[j, GetRow(GetGridIndex(cellPos)) - 1] == null && node != null) || (GetRow(GetGridIndex(cellPos)) - 1 >= 0 && nodes[j, GetRow(GetGridIndex(cellPos)) - 1] != null && node == null))
+                    {
+                        int randomRocas = UnityEngine.Random.Range(0, 2);
+                        GameObject paredSup = Instantiate(paredDer[randomRocas], new Vector3(cellPos.x, cellPos.y + 0.385f, cellPos.z), Quaternion.identity);
+                        GameObject paredInf = Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x, cellPos.y + 0.255f, cellPos.z), Quaternion.identity);
+                        paredSup.transform.Rotate(new Vector3(0.0f, 0.0f, 90));
+                        paredInf.transform.Rotate(new Vector3(0.0f, 0.0f, 90));
+                    }
+                    if ( GetColumn(GetGridIndex(cellPos)) - 1 >= 0 && ((nodes[GetColumn(GetGridIndex(cellPos)) - 1, lineCounter] != null && node == null) || (nodes[GetColumn(GetGridIndex(cellPos)) - 1, lineCounter] == null && node != null)) )
+                    {
+                        int randomRocas = UnityEngine.Random.Range(0, 2);
+                        Instantiate(paredDer[randomRocas], new Vector3(cellPos.x - 0.255f, cellPos.y, cellPos.z), Quaternion.identity);
+                        Instantiate(paredIzq[(randomRocas + 1) % 2], new Vector3(cellPos.x - 0.385f, cellPos.y, cellPos.z), Quaternion.identity);
+                    }
+                }
+                lineCounter++;
+            }
         }
     }
 
     public Vector3 GetGridCellCenter(int index)
     {
-        //Debug.Log(index + " Esto es Maca");
         Vector3 cellPosition = GetGridCellPosition(index);
         cellPosition.x += (gridCellSize / 2.0f);
         cellPosition.y -= (gridCellSize / 2.0f);
@@ -316,6 +440,12 @@ public class GridManager : MonoBehaviour
         return col;
     }
 
+    public int GetIndexByCoords(int row, int column)
+    {
+        int index = (row * numOfColumns) + column;
+        return index;
+    }
+
     public List<TileObject> GetNeighbours(TileObject node)
     {
         //TileObject[] neighbors = {null, null, null, null, null, null, null, null};
@@ -333,17 +463,17 @@ public class GridManager : MonoBehaviour
         //Top
         leftNodeRow = row - 1;
         leftNodeColumn = column;
-        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        if(GridManager.instance.player.getMineralPower() > 0)neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Top Right
         leftNodeRow = row - 1;
         leftNodeColumn = column + 1;
-        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        if (GridManager.instance.player.getMineralPower() > 0) neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Diagonal Top Left
         leftNodeRow = row - 1;
         leftNodeColumn = column - 1;
-        //neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
+        if (GridManager.instance.player.getMineralPower() > 0) neighbors.Add(AssignNeighbour(leftNodeRow, leftNodeColumn));
         //counter++;
         //Right
         leftNodeRow = row;

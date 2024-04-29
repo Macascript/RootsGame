@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,6 +11,8 @@ public class Player : MonoBehaviour
     private int waterEnergy;
 
     private bool food = false;
+
+    private int mineral = 0;
 
     private TileObject actualNode = null;
 
@@ -45,25 +49,65 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        GridManager.instance.brote = Instantiate(GridManager.instance.tallos[0], GridManager.instance.nodes[4, 0].transform.position + Vector3.up * 0.64f, Quaternion.identity);
-        GridManager.instance.nodes[4, 0] = Instantiate(to_abajo, GridManager.instance.nodes[4, 0].transform.position, Quaternion.identity).GetComponent<Root>();
-        //actualNode = new Root(GridManager.instance.nodes[4, 0].transform.position, to_abajo);
-        actualNode = GridManager.instance.nodes[4, 0];
+        GridManager.instance.brote = Instantiate(GridManager.instance.tallos[0], GridManager.instance.nodes[GridManager.instance.start_node, 0].transform.position + Vector3.up * 0.64f, Quaternion.identity);
+        GridManager.instance.nodes[GridManager.instance.start_node, 0] = Instantiate(to_abajo, GridManager.instance.nodes[GridManager.instance.start_node, 0].transform.position, Quaternion.identity).GetComponent<Root>();
+        actualNode = GridManager.instance.nodes[GridManager.instance.start_node, 0];
         ((Root)actualNode).birthAnimation();
+        this.transform.position = actualNode.transform.position;
     }
 
     public int getWaterEnergy()
     {
         return waterEnergy;
     }
+    public int getMineralPower()
+    {
+        return mineral;
+    }
     public bool getFoodEnergy()
     {
         return food;
     }
 
+    public bool useMineralPower()
+    {
+        if(mineral > 0)
+        {
+            mineral--;
+            return true;
+        }
+        else
+            return false;
+    }
+
     public void gainFoodEnergy()
     {
         food = true;
+    }
+
+    public void gainMineralPower(MineralType mineralType)
+    {
+        switch (mineralType)
+        {
+            case MineralType.Calcium:
+                mineral++;
+                break;
+            case MineralType.Sulphur:
+                mineral += 2;
+                break;
+            case MineralType.Magnessium:
+                mineral += 3;
+                break;
+            case MineralType.Potassium:
+                mineral += 4;
+                break;
+            case MineralType.Phosporus:
+                mineral += 5;
+                break; 
+            case MineralType.Nitrogen:
+                mineral += 6;
+                break;  
+        }
     }
 
     public void useFoodEnergy()
@@ -122,6 +166,7 @@ public class Player : MonoBehaviour
         if (node == null)
         {
             Debug.Log("null");
+            GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
             return;
         }
         else if (!GusanoBehaviour.listaIndices.ContainsValue(GridManager.instance.GetGridIndex(node.transform.position)) && node.onStep())
@@ -181,6 +226,7 @@ public class Player : MonoBehaviour
 
     void gameOver()
     {
+        GridManager.instance.setGameOver();
         Debug.Log("gameOver");
         GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong(false);
         StartCoroutine(gameOverCoroutine(panelGameOver));
@@ -215,6 +261,12 @@ public class Player : MonoBehaviour
     {
         if (direction == Directions.None) return;
 
+        if(direction == Directions.Up || direction == Directions.RightUp || direction == Directions.LeftUp && !useMineralPower())
+        {
+            GridManager.instance.virtualCamera.GetComponent<ShakeCamera>().ShakeCameraWrong();
+            return;
+        }
+
         this.transform.position = actualNode.transform.position;
         actualNode.nextTileObject = GridManager.instance.GetNeighbour(actualNode, direction);
         goToNode(actualNode.nextTileObject, direction);
@@ -225,5 +277,7 @@ public class Player : MonoBehaviour
     public void nextDownNode() => nextNode(Directions.Down);
     public void nextLeftDownNode() => nextNode(Directions.LeftDown);
     public void nextLeftNode() => nextNode(Directions.Left);
-
+    public void nextUpNode() => nextNode(Directions.Up);
+    public void nextRightUpNode() => nextNode(Directions.RightUp);
+    public void nextLeftUpNode() => nextNode(Directions.LeftUp);
 }

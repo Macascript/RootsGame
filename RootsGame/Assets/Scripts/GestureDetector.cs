@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class GestureDetector : MonoBehaviour
 {
     [SerializeField] private float minUmbralTime = 0.1f, maxUmbralTime = 1f, minUmbralDistance = 1f;
-    public UnityEvent onLeft, onRight, onLeftDown, onRightDown, onDown, onNone;
+    public UnityEvent onLeft, onRight, onLeftDown, onRightDown, onDown, onNone, onUp, OnRightUp, OnLeftUp;
 
     private Vector2 initialPositionFirstTouch, initialPositionSecondTouch;
     private int touches = 0;
@@ -15,11 +15,15 @@ public class GestureDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GridManager.instance.isGameOver) return;
         if (Input.GetKeyDown(KeyCode.A)) onLeft.Invoke();
         if (Input.GetKeyDown(KeyCode.S)) onDown.Invoke();
         if (Input.GetKeyDown(KeyCode.D)) onRight.Invoke();
         if (Input.GetKeyDown(KeyCode.Z)) onLeftDown.Invoke();
         if (Input.GetKeyDown(KeyCode.X)) onRightDown.Invoke();
+        if (Input.GetKeyDown(KeyCode.W)) onUp.Invoke();
+        if (Input.GetKeyDown(KeyCode.E)) OnRightUp.Invoke();
+        if (Input.GetKeyDown(KeyCode.Q)) OnLeftUp.Invoke();
 
         if (Input.touchCount == 1)
         {
